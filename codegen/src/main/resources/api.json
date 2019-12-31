@@ -1,0 +1,292 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "1.0-oas3",
+    "title" : "TruckAPI",
+    "description" : ""
+  },
+  "paths" : {
+    "/trucks" : {
+      "get" : {
+        "summary" : "List all trucks",
+        "operationId" : "listTrucks",
+        "tags" : [ "trucks" ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of pets.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/TruckDTO"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Creates a truck",
+        "operationId" : "createTruck",
+        "tags" : [ "trucks" ],
+        "responses" : {
+          "201" : {
+            "description" : "Returns location in header",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL for the created truck",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trucks/{truckId}" : {
+      "get" : {
+        "summary" : "Get a specific truck",
+        "operationId" : "getTruckById",
+        "tags" : [ "trucks" ],
+        "parameters" : [ {
+          "name" : "truckId",
+          "in" : "path",
+          "required" : true,
+          "description" : "The id of the truck to retrieve",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The requested truck",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TruckDTO"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update a specific truck",
+        "operationId" : "updateTruck",
+        "tags" : [ "trucks" ],
+        "parameters" : [ {
+          "name" : "truckId",
+          "in" : "path",
+          "required" : true,
+          "description" : "The id of the truck to update",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Returns location in header",
+            "headers" : {
+              "Location" : {
+                "description" : "The URL for the created truck",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Deletes a specific truck",
+        "operationId" : "deleteTruck",
+        "tags" : [ "trucks" ],
+        "parameters" : [ {
+          "name" : "truckId",
+          "in" : "path",
+          "required" : true,
+          "description" : "The id of the truck to delete",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Returns no content"
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "TruckDTO" : {
+        "type" : "object",
+        "required" : [ "id", "model", "fuel_type" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "model" : {
+            "type" : "string"
+          },
+          "horsepower" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "displacement" : {
+            "type" : "number",
+            "format" : "float"
+          },
+          "fuelType" : {
+            "$ref" : "#/components/schemas/FuelTypeDTO"
+          },
+          "classification" : {
+            "$ref" : "#/components/schemas/ClassificationDTO"
+          },
+          "applications" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ApplicationDTO"
+            }
+          },
+          "colors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ColorDTO"
+            }
+          },
+          "modifiedAt" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "FuelTypeDTO" : {
+        "type" : "object",
+        "required" : [ "id", "name" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ClassificationDTO" : {
+        "type" : "object",
+        "required" : [ "id", "name" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ApplicationDTO" : {
+        "type" : "object",
+        "required" : [ "id", "name" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ColorDTO" : {
+        "type" : "object",
+        "required" : [ "id", "name", "hex" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "hex" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ErrorDTO" : {
+        "type" : "object",
+        "required" : [ "code", "message" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
