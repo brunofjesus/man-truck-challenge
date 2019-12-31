@@ -10,25 +10,34 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pt.brunojesus.truck.codegen.api.TrucksApi;
 import pt.brunojesus.truck.codegen.dto.TruckDTO;
+import pt.brunojesus.truck.facade.mapper.TruckDTOToTruckMapper;
 import pt.brunojesus.truck.model.domain.Truck;
 
 @RestController
 public class TruckController implements TrucksApi {
 
-	@Autowired
-	@Qualifier("truckToTruckDTOMapper")
 	Function<Truck, TruckDTO> truckToTruckDTOMapper;
-	
+
+	Function<TruckDTO, Truck> truckDTOToTruckMapper;
+
 	@Autowired
-	@Qualifier("truckDTOToTruckMapper")
-	Function<Truck, TruckDTO> truckDTOToTruckMapper;
-	
+	public TruckController( //
+			@Qualifier("truckToTruckDTOMapper") Function<Truck, TruckDTO> truckToTruckDTOMapper, //
+			@Qualifier("truckDTOToTruckMapper") Function<TruckDTO, Truck> truckDTOToTruckMapper) {
+		
+		super();
+		
+		this.truckToTruckDTOMapper = truckToTruckDTOMapper;
+		this.truckDTOToTruckMapper = truckDTOToTruckMapper;
+	}
+
 	@Override
 	public Optional<HttpServletRequest> getRequest() {
 		// TODO Auto-generated method stub

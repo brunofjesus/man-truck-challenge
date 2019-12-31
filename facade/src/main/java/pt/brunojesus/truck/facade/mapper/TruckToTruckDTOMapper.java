@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import pt.brunojesus.truck.codegen.dto.TruckDTO;
 import pt.brunojesus.truck.model.domain.Truck;
 
-@Component(value = "truckToTruckDTOMapper")
+@Component("truckToTruckDTOMapper")
 public class TruckToTruckDTOMapper implements Function<Truck, TruckDTO> {
 
 	@Autowired

@@ -1,6 +1,5 @@
 package pt.brunojesus.truck.model.domain;
 
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Embeddable
+@Entity
 @Builder
 @Getter
 @Setter
@@ -28,7 +27,7 @@ import lombok.ToString;
 public class RelTruckColor {
 
 	@EmbeddedId
-	RelTruckColor id;
+	RelTruckColorId id;
 	
 	@ManyToOne
 	@MapsId("truck_id")
