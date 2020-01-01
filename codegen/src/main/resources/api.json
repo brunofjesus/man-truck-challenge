@@ -41,6 +41,16 @@
         "summary" : "Creates a truck",
         "operationId" : "createTruck",
         "tags" : [ "trucks" ],
+        "requestBody" : {
+          "description" : "The new truck",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TruckDTO"
+              }
+            }
+          }
+        },
         "responses" : {
           "201" : {
             "description" : "Returns location in header",
@@ -118,17 +128,19 @@
             "format" : "int64"
           }
         } ],
-        "responses" : {
-          "201" : {
-            "description" : "Returns location in header",
-            "headers" : {
-              "Location" : {
-                "description" : "The URL for the created truck",
-                "schema" : {
-                  "type" : "string"
-                }
+        "requestBody" : {
+          "description" : "The updated truck",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TruckDTO"
               }
             }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Returns no content"
           },
           "default" : {
             "description" : "unexpected error",
@@ -215,7 +227,7 @@
           },
           "modifiedAt" : {
             "type" : "string",
-            "format" : "date"
+            "format" : "date-time"
           }
         }
       },

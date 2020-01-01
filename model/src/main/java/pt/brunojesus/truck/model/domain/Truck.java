@@ -1,8 +1,10 @@
 package pt.brunojesus.truck.model.domain;
 
+import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,8 +46,8 @@ public class Truck {
 	public static final String PROPERTY_DISPLACEMENT = "displacement";
 	public static final String PROPERTY_FUEL_TYPE = "fuelType";
 	public static final String PROPERTY_CLASSIFICATION = "classification";
-	public static final String PROPERTY_TRUCK_APPLICATION = "relTruckApplications";
-	public static final String PROPERTY_TRUCK_COLOR = "relTruckColors";
+	public static final String PROPERTY_TRUCK_REL_TRUCK_APPLICATIONS = "relTruckApplications";
+	public static final String PROPERTY_TRUCK_REL_TRUCK_COLORS = "relTruckColors";
 	public static final String PROPERTY_TRUCK_MODIFICATION_TIMESTAMP = "modificationTimestamp";
 
 	@Id
@@ -58,10 +62,10 @@ public class Truck {
 	private String model;
 	
 	@Column(name = "horsepower")
-	private Integer horsepower;
+	private Float horsepower;
 	
 	@Column(name = "displacement")
-	private Double displacement;
+	private Float displacement;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fuel_type_id")
@@ -71,13 +75,15 @@ public class Truck {
 	@JoinColumn(name = "classification_id")
 	private Classification classification;
 	
-	@OneToMany(mappedBy = "truck")
-	private Set<RelTruckApplication> relTruckApplications;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	private List<RelTruckApplication> relTruckApplications;
 	
-	@OneToMany(mappedBy = "truck")
-	private Set<RelTruckColor> relTruckColors;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	private List<RelTruckColor> relTruckColors;
 	
 	@Version
 	@Column(name = "modified_at")
-	private Date modificationTimestamp;
+	private Timestamp modificationTimestamp;
 }

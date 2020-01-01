@@ -137,8 +137,8 @@
 			<column name="id" type="number(10)"
 				defaultValueSequenceNext="seq_truck" />
 			<column name="model" type="varchar(64)" />
-			<column name="horsepower" type="number(4)" />
-			<column name="displacement" type="number(5)" />
+			<column name="horsepower" type="float" />
+			<column name="displacement" type="float" />
 			<column name="fuel_type_id" type="number(9)" />
 			<column name="classification_id" type="number(9)" />
 			<column name="modified_at" type="timestamp" />

@@ -25,9 +25,11 @@ public class RelTruckColorId implements Serializable {
 
 	private static final long serialVersionUID = -6321150468604007896L;
 
+	@EqualsAndHashCode.Include
 	@Column(name = "truck_id")
 	private long truckId;
 	
+	@EqualsAndHashCode.Include
 	@Column(name = "color_id")
 	private int colorId;
 }

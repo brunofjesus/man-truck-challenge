@@ -7,6 +7,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -25,13 +27,19 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "rel_truck_application")
 public class RelTruckApplication {
+	
+	public static final String PROPERTY_ID = "id";
+	public static final String PROPERTY_TRUCK = "truck";
+	public static final String PROPERTY_APPLICATION = "application";
 
 	@EmbeddedId
+	@EqualsAndHashCode.Include
 	RelTruckApplicationId id;
 	
 	@ManyToOne
 	@MapsId("truck_id")
 	@JoinColumn(name = "truck_id")
+	@JsonBackReference
 	private Truck truck;
 	
 	@ManyToOne

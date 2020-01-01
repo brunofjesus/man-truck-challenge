@@ -25,9 +25,14 @@ public class RelTruckApplicationId implements Serializable {
 
 	private static final long serialVersionUID = 3392227762986333270L;
 
+	public static final String PROPERTY_TRUCK_ID = "truckId";
+	public static final String PROPERTY_APPLICATION_ID = "applicationId";
+	
+	@EqualsAndHashCode.Include
 	@Column(name = "truck_id")
 	private long truckId;
 	
+	@EqualsAndHashCode.Include
 	@Column(name = "application_id")
 	private int applicationId;
 }
