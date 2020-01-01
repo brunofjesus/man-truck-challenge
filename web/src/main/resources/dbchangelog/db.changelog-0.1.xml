@@ -134,7 +134,8 @@
 
 	<changeSet id="0-23" author="bruno.jesus">
 		<createTable tableName="truck">
-			<column name="id" type="number(10)" defaultValueSequenceNext="seq_truck" />
+			<column name="id" type="number(10)"
+				defaultValueSequenceNext="seq_truck" />
 			<column name="model" type="varchar(64)" />
 			<column name="horsepower" type="number(4)" />
 			<column name="displacement" type="number(5)" />
@@ -198,6 +199,20 @@
 			columnNames="application_id, truck_id" />
 	</changeSet>
 
+	<changeSet id="0-32-1" author="bruno.jesus">
+		<addForeignKeyConstraint
+			constraintName="fk_rel_truck_application_tr"
+			referencedTableName="truck" baseColumnNames="truck_id"
+			baseTableName="rel_truck_application" referencedColumnNames="id" />
+	</changeSet>
+
+	<changeSet id="0-32-2" author="bruno.jesus">
+		<addForeignKeyConstraint
+			constraintName="fk_rel_truck_application_ap"
+			referencedTableName="application" baseColumnNames="application_id"
+			baseTableName="rel_truck_application" referencedColumnNames="id" />
+	</changeSet>
+
 	<!-- REL TRUCK COLOR -->
 	<changeSet id="0-33" author="bruno.jesus">
 		<createTable tableName="rel_truck_color">
@@ -220,4 +235,157 @@
 		<addPrimaryKey tableName="rel_truck_color"
 			columnNames="color_id, truck_id" />
 	</changeSet>
+
+	<changeSet id="0-36-1" author="bruno.jesus">
+		<addForeignKeyConstraint
+			constraintName="fk_rel_truck_color_truck" referencedTableName="truck"
+			baseColumnNames="truck_id" baseTableName="rel_truck_color"
+			referencedColumnNames="id" />
+	</changeSet>
+
+	<changeSet id="0-36-2" author="bruno.jesus">
+		<addForeignKeyConstraint
+			constraintName="fk_rel_truck_color_color" referencedTableName="color"
+			baseColumnNames="color_id" baseTableName="rel_truck_color"
+			referencedColumnNames="id" />
+	</changeSet>
+
+	<!-- DATA -->
+	<changeSet id="0-37" author="bruno.jesus">
+		<insert tableName="color">
+			<!-- <column name="id" valueNumeric="1" /> -->
+			<column name="name" value="white" />
+			<column name="hex" value="ffffff" />
+		</insert>
+		<insert tableName="color">
+			<!-- <column name="id" valueNumeric="2" /> -->
+			<column name="name" value="blue" />
+			<column name="hex" value="0000ff" />
+		</insert>
+		<insert tableName="color">
+			<!-- <column name="id" valueNumeric="3" /> -->
+			<column name="name" value="red" />
+			<column name="hex" value="ff0000" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-38" author="bruno.jesus">
+		<insert tableName="application">
+			<!-- <column name="id" valueNumeric="1" /> -->
+			<column name="name" value="Loung haul" />
+		</insert>
+		<insert tableName="application">
+			<!-- <column name="id" valueNumeric="2" /> -->
+			<column name="name" value="Construction" />
+		</insert>
+		<insert tableName="application">
+			<!-- <column name="id" valueNumeric="3" /> -->
+			<column name="name" value="Fire department" />
+		</insert>
+		<insert tableName="application">
+			<!-- <column name="id" valueNumeric="4" /> -->
+			<column name="name" value="Distribution (Food)" />
+		</insert>
+		<insert tableName="application">
+			<!-- <column name="id" valueNumeric="5" /> -->
+			<column name="name" value="Wastedisposal" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-39" author="bruno.jesus">
+		<insert tableName="fuel_type">
+			<!-- <column name="id" valueNumeric="1" /> -->
+			<column name="name" value="Diesel" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-40" author="bruno.jesus">
+		<insert tableName="classification">
+			<!-- <column name="id" valueNumeric="1" /> -->
+			<column name="name" value="Light range" />
+		</insert>
+		<insert tableName="classification">
+			<!-- <column name="id" valueNumeric="2" /> -->
+			<column name="name" value="Heavy range" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-41" author="bruno.jesus">
+		<insert tableName="truck">
+			<column name="model" value="TGX 18.440" />
+			<column name="horsepower" valueNumeric="440" />
+			<column name="displacement" valueNumeric="10518" />
+			<column name="fuel_type_id" valueNumeric="1" />
+			<column name="classification_id" valueNumeric="2" />
+			<column name="modified_at" value="2020-01-01 00:00:00" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-42" author="bruno.jesus">
+		<insert tableName="rel_truck_application">
+			<column name="truck_id" valueNumeric="1" />
+			<column name="application_id" valueNumeric="1" />
+		</insert>
+		<insert tableName="rel_truck_application">
+			<column name="truck_id" valueNumeric="1" />
+			<column name="application_id" valueNumeric="2" />
+		</insert>
+		<insert tableName="rel_truck_application">
+			<column name="truck_id" valueNumeric="1" />
+			<column name="application_id" valueNumeric="3" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-43" author="bruno.jesus">
+		<insert tableName="rel_truck_color">
+			<column name="truck_id" valueNumeric="1" />
+			<column name="color_id" valueNumeric="1" />
+		</insert>
+		<insert tableName="rel_truck_color">
+			<column name="truck_id" valueNumeric="1" />
+			<column name="color_id" valueNumeric="2" />
+		</insert>
+		<insert tableName="rel_truck_color">
+			<column name="truck_id" valueNumeric="1" />
+			<column name="color_id" valueNumeric="3" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-44" author="bruno.jesus">
+		<insert tableName="truck">
+			<column name="model" value="TGX 18.320" />
+			<column name="horsepower" valueNumeric="320" />
+			<column name="displacement" valueNumeric="10518" />
+			<column name="fuel_type_id" valueNumeric="1" />
+			<column name="classification_id" valueNumeric="1" />
+			<column name="modified_at" value="2020-01-01 00:00:00" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-45" author="bruno.jesus">
+		<insert tableName="rel_truck_application">
+			<column name="truck_id" valueNumeric="2" />
+			<column name="application_id" valueNumeric="4" />
+		</insert>
+		<insert tableName="rel_truck_application">
+			<column name="truck_id" valueNumeric="2" />
+			<column name="application_id" valueNumeric="1" />
+		</insert>
+		<insert tableName="rel_truck_application">
+			<column name="truck_id" valueNumeric="2" />
+			<column name="application_id" valueNumeric="5" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="0-46" author="bruno.jesus">
+		<insert tableName="rel_truck_color">
+			<column name="truck_id" valueNumeric="2" />
+			<column name="color_id" valueNumeric="1" />
+		</insert>
+		<insert tableName="rel_truck_color">
+			<column name="truck_id" valueNumeric="2" />
+			<column name="color_id" valueNumeric="2" />
+		</insert>
+	</changeSet>
+
 </databaseChangeLog>
