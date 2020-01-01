@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+	<!-- COLOR -->
+	<changeSet id="0-1" author="bruno.jesus">
+		<createSequence sequenceName="seq_color" startValue="1"
+			incrementBy="1" />
+	</changeSet>
+
+	<changeSet id="0-2" author="bruno.jesus">
+		<createTable tableName="color">
+			<column name="id" type="number(9)"
+				defaultValueSequenceNext="seq_color" />
+			<column name="name" type="varchar(64)" />
+			<column name="hex" type="varchar(6)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="0-3" author="bruno.jesus">
+		<addNotNullConstraint tableName="color"
+			columnName="id" columnDataType="number(9)" />
+	</changeSet>
+
+	<changeSet id="0-4" author="bruno.jesus">
+		<addNotNullConstraint tableName="color"
+			columnName="name" columnDataType="varchar(64)" />
+	</changeSet>
+
+	<changeSet id="0-5" author="bruno.jesus">
+		<addNotNullConstraint tableName="color"
+			columnName="hex" columnDataType="varchar(6)" />
+	</changeSet>
+
+	<changeSet id="0-6" author="bruno.jesus">
+		<addPrimaryKey tableName="color" columnNames="id" />
+	</changeSet>
+
+
+
+	<!-- FUEL_TYPE -->
+	<changeSet id="0-7" author="bruno.jesus">
+		<createSequence sequenceName="seq_fuel_type"
+			startValue="1" incrementBy="1" />
+	</changeSet>
+
+	<changeSet id="0-8" author="bruno.jesus">
+		<createTable tableName="fuel_type">
+			<column name="id" type="number(9)"
+				defaultValueSequenceNext="seq_fuel_type" />
+			<column name="name" type="varchar(64)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="0-9" author="bruno.jesus">
+		<addNotNullConstraint tableName="fuel_type"
+			columnName="id" columnDataType="number(9)" />
+	</changeSet>
+
+	<changeSet id="0-10" author="bruno.jesus">
+		<addNotNullConstraint tableName="fuel_type"
+			columnName="name" columnDataType="varchar(64)" />
+	</changeSet>
+
+	<changeSet id="0-11" author="bruno.jesus">
+		<addPrimaryKey tableName="fuel_type" columnNames="id" />
+	</changeSet>
+
+	<!-- CLASSIFICATION -->
+	<changeSet id="0-12" author="bruno.jesus">
+		<createSequence sequenceName="seq_classification"
+			startValue="1" incrementBy="1" />
+	</changeSet>
+
+	<changeSet id="0-13" author="bruno.jesus">
+		<createTable tableName="classification">
+			<column name="id" type="number(9)"
+				defaultValueSequenceNext="seq_classification" />
+			<column name="name" type="varchar(64)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="0-14" author="bruno.jesus">
+		<addNotNullConstraint tableName="classification"
+			columnName="id" columnDataType="number(9)" />
+	</changeSet>
+
+	<changeSet id="0-15" author="bruno.jesus">
+		<addNotNullConstraint tableName="classification"
+			columnName="name" columnDataType="varchar(64)" />
+	</changeSet>
+
+	<changeSet id="0-16" author="bruno.jesus">
+		<addPrimaryKey tableName="classification"
+			columnNames="id" />
+	</changeSet>
+
+	<!-- APPLICATION -->
+	<changeSet id="0-17" author="bruno.jesus">
+		<createSequence sequenceName="seq_application"
+			startValue="1" incrementBy="1" />
+	</changeSet>
+
+	<changeSet id="0-18" author="bruno.jesus">
+		<createTable tableName="application">
+			<column name="id" type="number(9)"
+				defaultValueSequenceNext="seq_application" />
+			<column name="name" type="varchar(64)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="0-19" author="bruno.jesus">
+		<addNotNullConstraint tableName="application"
+			columnName="id" columnDataType="number(9)" />
+	</changeSet>
+
+	<changeSet id="0-20" author="bruno.jesus">
+		<addNotNullConstraint tableName="application"
+			columnName="name" columnDataType="varchar(64)" />
+	</changeSet>
+
+	<changeSet id="0-21" author="bruno.jesus">
+		<addPrimaryKey tableName="application" columnNames="id" />
+	</changeSet>
+
+	<!-- TRUCK -->
+	<changeSet id="0-22" author="bruno.jesus">
+		<createSequence sequenceName="seq_truck" startValue="1"
+			incrementBy="1" />
+	</changeSet>
+
+	<changeSet id="0-23" author="bruno.jesus">
+		<createTable tableName="truck">
+			<column name="id" type="number(10)" defaultValueSequenceNext="seq_truck" />
+			<column name="model" type="varchar(64)" />
+			<column name="horsepower" type="number(4)" />
+			<column name="displacement" type="number(5)" />
+			<column name="fuel_type_id" type="number(9)" />
+			<column name="classification_id" type="number(9)" />
+			<column name="modified_at" type="timestamp" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="0-24" author="bruno.jesus">
+		<addNotNullConstraint tableName="truck"
+			columnName="id" columnDataType="number(10)" />
+	</changeSet>
+
+	<changeSet id="0-25" author="bruno.jesus">
+		<addNotNullConstraint tableName="truck"
+			columnName="model" columnDataType="varchar(64)" />
+	</changeSet>
+
+	<changeSet id="0-26" author="bruno.jesus">
+		<addPrimaryKey tableName="truck" columnNames="id" />
+	</changeSet>
+
+	<changeSet id="0-27" author="bruno.jesus">
+		<addForeignKeyConstraint
+			constraintName="fk_truck_fuel_type" referencedTableName="fuel_type"
+			baseColumnNames="fuel_type_id" baseTableName="truck"
+			referencedColumnNames="id" />
+	</changeSet>
+
+	<changeSet id="0-28" author="bruno.jesus">
+		<addForeignKeyConstraint
+			constraintName="fk_truck_classification"
+			referencedTableName="classification"
+			baseColumnNames="classification_id" baseTableName="truck"
+			referencedColumnNames="id" />
+	</changeSet>
+
+	<!-- REL TRUCK APPLICATION -->
+	<changeSet id="0-29" author="bruno.jesus">
+		<createTable tableName="rel_truck_application">
+			<column name="application_id" type="number(9)" />
+			<column name="truck_id" type="number(10)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="0-30" author="bruno.jesus">
+		<addNotNullConstraint
+			tableName="rel_truck_application" columnName="application_id"
+			columnDataType="number(9)" />
+	</changeSet>
+
+	<changeSet id="0-31" author="bruno.jesus">
+		<addNotNullConstraint
+			tableName="rel_truck_application" columnName="truck_id"
+			columnDataType="number(10)" />
+	</changeSet>
+
+	<changeSet id="0-32" author="bruno.jesus">
+		<addPrimaryKey tableName="rel_truck_application"
+			columnNames="application_id, truck_id" />
+	</changeSet>
+
+	<!-- REL TRUCK COLOR -->
+	<changeSet id="0-33" author="bruno.jesus">
+		<createTable tableName="rel_truck_color">
+			<column name="color_id" type="number(9)" />
+			<column name="truck_id" type="number(10)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="0-34" author="bruno.jesus">
+		<addNotNullConstraint tableName="rel_truck_color"
+			columnName="color_id" columnDataType="number(9)" />
+	</changeSet>
+
+	<changeSet id="0-35" author="bruno.jesus">
+		<addNotNullConstraint tableName="rel_truck_color"
+			columnName="truck_id" columnDataType="number(10)" />
+	</changeSet>
+
+	<changeSet id="0-36" author="bruno.jesus">
+		<addPrimaryKey tableName="rel_truck_color"
+			columnNames="color_id, truck_id" />
+	</changeSet>
+</databaseChangeLog>

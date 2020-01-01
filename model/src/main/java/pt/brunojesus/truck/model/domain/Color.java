@@ -30,12 +30,16 @@ public class Color {
 
 	@Id
 	@EqualsAndHashCode.Include
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_color")
-//	@SequenceGenerator(name = "seq_color", sequenceName = "seq_color", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_color")
+	@SequenceGenerator(name = "seq_color", sequenceName = "seq_color", allocationSize = 1)
 	@Column(name = "id")
 	private int id;
 
 	@NotNull
 	@Column(name = "name")
 	private String name;
+	
+	@NotNull
+	@Column(name = "hex")
+	private String hex;
 }

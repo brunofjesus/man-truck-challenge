@@ -30,8 +30,8 @@ public class Classification {
 
 	@Id
 	@EqualsAndHashCode.Include
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_classification")
-//	@SequenceGenerator(name = "seq_classification", sequenceName = "seq_classification", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_classification")
+	@SequenceGenerator(name = "seq_classification", sequenceName = "seq_classification", allocationSize = 1)
 	@Column(name = "id")
 	private int id;
 

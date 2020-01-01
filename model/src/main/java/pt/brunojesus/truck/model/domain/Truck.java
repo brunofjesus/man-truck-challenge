@@ -35,13 +35,23 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "truck")
 public class Truck {
+	
+	public static final String PROPERTY_ID = "id";
+	public static final String PROPERTY_MODEL = "model";
+	public static final String PROPERTY_HORSEPOWER = "horsepower";
+	public static final String PROPERTY_DISPLACEMENT = "displacement";
+	public static final String PROPERTY_FUEL_TYPE = "fuelType";
+	public static final String PROPERTY_CLASSIFICATION = "classification";
+	public static final String PROPERTY_TRUCK_APPLICATION = "relTruckApplications";
+	public static final String PROPERTY_TRUCK_COLOR = "relTruckColors";
+	public static final String PROPERTY_TRUCK_MODIFICATION_TIMESTAMP = "modificationTimestamp";
 
 	@Id
 	@EqualsAndHashCode.Include
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_truck")
-//	@SequenceGenerator(name = "seq_truck", sequenceName = "seq_truck", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_truck")
+	@SequenceGenerator(name = "seq_truck", sequenceName = "seq_truck", allocationSize = 1)
 	@Column(name = "id")
-	private int id;
+	private long id;
 	
 	@NotNull
 	@Column(name = "model")
@@ -65,7 +75,7 @@ public class Truck {
 	private Set<RelTruckApplication> relTruckApplications;
 	
 	@OneToMany(mappedBy = "truck")
-	private Set<RelTruckColor> relTruckColor;
+	private Set<RelTruckColor> relTruckColors;
 	
 	@Version
 	@Column(name = "modified_at")

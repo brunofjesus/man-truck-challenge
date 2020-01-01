@@ -1,4 +1,4 @@
-pt/brunojesus/truck/facade/configuration/FacadeConfiguration.class
-pt/brunojesus/truck/facade/mapper/TruckToTruckDTOMapper.class
-pt/brunojesus/truck/facade/api/TruckController.class
-pt/brunojesus/truck/facade/mapper/TruckDTOToTruckMapper.class
+pt\brunojesus\truck\facade\api\TruckController.class
+pt\brunojesus\truck\facade\mapper\TruckToTruckDTOMapper.class
+pt\brunojesus\truck\facade\configuration\FacadeConfiguration.class
+pt\brunojesus\truck\facade\mapper\TruckDTOToTruckMapper.class

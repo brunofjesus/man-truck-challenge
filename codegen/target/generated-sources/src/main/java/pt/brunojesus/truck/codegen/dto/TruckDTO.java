@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
  * TruckDTO
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-12-31T17:52:56.721002Z[Europe/Lisbon]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-12-31T23:54:32.336Z[Europe/London]")
 public class TruckDTO   {
   @JsonProperty("id")
   private Long id = null;

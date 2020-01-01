@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+
+    <!-- 
+    	Types:
+    	
+    	LIQUIBASE	SQL
+    	bigint		number(38,0)
+		blob		blob
+		boolean		number(1)
+		char		char
+		clob		clob
+		currency	number(15,2)
+		datetime	timestamp
+		date		date
+		decimal		decimal
+		double		float(24)
+		float		float
+		int			number(10)
+		mediumint	mediumint
+		nchar		nchar
+		nvarchar	nvarchar2
+		number		number
+		smallint	number(5)
+		time		date
+		timestamp	timestamp
+		tinyint		number(3)
+		uuid		raw(16)
+		varchar(x)	varchar2 	
+     -->   
+     
+	<include file="dbchangelog/db.changelog-0.1.xml" />
+
+</databaseChangeLog>

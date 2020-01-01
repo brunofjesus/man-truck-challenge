@@ -30,8 +30,8 @@ public class FuelType {
 
 	@Id
 	@EqualsAndHashCode.Include
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_fuel_type")
-//	@SequenceGenerator(name = "seq_fuel_type", sequenceName = "seq_fuel_type", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_fuel_type")
+	@SequenceGenerator(name = "seq_fuel_type", sequenceName = "seq_fuel_type", allocationSize = 1)
 	@Column(name = "id")
 	private int id;
 

@@ -30,8 +30,8 @@ public class Application {
 
 	@Id
 	@EqualsAndHashCode.Include
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_application")
-//	@SequenceGenerator(name = "seq_application", sequenceName = "seq_application", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_application")
+	@SequenceGenerator(name = "seq_application", sequenceName = "seq_application", allocationSize = 1)
 	@Column(name = "id")
 	private int id;
 
