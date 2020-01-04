@@ -59,10 +59,10 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/api.json</inputSpec>
 							<language>typescript-angular</language>
-							<output>${project.parent.basedir}/frontend/truckmanager/src/api</output>
+							<output>${project.parent.basedir}/frontend/truckmanager/src/swagger</output>
 							<generateApiDocumentation>false</generateApiDocumentation>
 							<generateModelDocumentation>false</generateModelDocumentation>
-							<generateSupportingFiles>false</generateSupportingFiles>
+							<generateSupportingFiles>true</generateSupportingFiles>
 						</configuration>
 					</execution>
 				</executions>
