@@ -13,7 +13,7 @@
         "tags" : [ "trucks" ],
         "responses" : {
           "200" : {
-            "description" : "A list of pets.",
+            "description" : "A list of trucks.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -171,6 +171,134 @@
         "responses" : {
           "204" : {
             "description" : "Returns no content"
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fueltypes" : {
+      "get" : {
+        "summary" : "List all fuel types",
+        "operationId" : "listFuelTypes",
+        "tags" : [ "fuelTypes", "truckProperties" ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of fuel types.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FuelTypeDTO"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/classifications" : {
+      "get" : {
+        "summary" : "List all classifications",
+        "operationId" : "listClassificiations",
+        "tags" : [ "classifications", "truckProperties" ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of classifications.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ClassificationDTO"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applications" : {
+      "get" : {
+        "summary" : "List all applications",
+        "operationId" : "listApplications",
+        "tags" : [ "applications", "truckProperties" ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of applications.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ApplicationDTO"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "unexpected error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/colors" : {
+      "get" : {
+        "summary" : "List all colors",
+        "operationId" : "listColors",
+        "tags" : [ "colors", "truckProperties" ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of colors.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ColorDTO"
+                  }
+                }
+              }
+            }
           },
           "default" : {
             "description" : "unexpected error",

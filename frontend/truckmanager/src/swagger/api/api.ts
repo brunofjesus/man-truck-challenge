@@ -1,3 +1,13 @@
+export * from './applications.service';
+import { ApplicationsService } from './applications.service';
+export * from './classifications.service';
+import { ClassificationsService } from './classifications.service';
+export * from './colors.service';
+import { ColorsService } from './colors.service';
+export * from './fuelTypes.service';
+import { FuelTypesService } from './fuelTypes.service';
+export * from './truckProperties.service';
+import { TruckPropertiesService } from './truckProperties.service';
 export * from './trucks.service';
 import { TrucksService } from './trucks.service';
-export const APIS = [TrucksService];
+export const APIS = [ApplicationsService, ClassificationsService, ColorsService, FuelTypesService, TruckPropertiesService, TrucksService];

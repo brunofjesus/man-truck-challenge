@@ -1,10 +1,13 @@
 package pt.brunojesus.truck.management.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pt.brunojesus.truck.foundation.aop.AutoLogger;
+import pt.brunojesus.truck.foundation.util.CollectionUtils;
 import pt.brunojesus.truck.management.service.IFuelTypeService;
 import pt.brunojesus.truck.model.domain.FuelType;
 import pt.brunojesus.truck.persistence.repository.IFuelTypeRepository;
@@ -19,6 +22,12 @@ public class FuelTypeService implements IFuelTypeService {
 	public FuelTypeService(IFuelTypeRepository fuelTypeRepository) {
 		super();
 		this.fuelTypeRepository = fuelTypeRepository;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<FuelType> findAll() {
+		return CollectionUtils.fromIterable(fuelTypeRepository.findAll());
 	}
 
 	@Override

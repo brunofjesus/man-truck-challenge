@@ -1,0 +1,12 @@
+<clr-modal [(clrModalOpen)]="isOpen" [clrModalClosable]="false">
+    <h3 class="modal-title">{{title}}</h3>
+    <div class="modal-body">
+        <p *ngFor="let p of text | split">
+            {{p}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="isOpen = false; onClick(false);" *ngIf="cancelButton">{{labelCancel}}</button>
+        <button type="button" class="btn btn-primary" (click)="isOpen = false; onClick(true);">{{labelOk}}</button>
+    </div>
+</clr-modal>

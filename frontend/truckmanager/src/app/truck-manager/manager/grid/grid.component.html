@@ -1,0 +1,33 @@
+<clr-datagrid [clrLoading]="loading$ | async">
+    <clr-dg-column>ID</clr-dg-column>
+    <clr-dg-column [clrDgField]="'model'">Model</clr-dg-column>
+    <clr-dg-column [clrDgField]="'classification.name'">Classification</clr-dg-column>
+    <clr-dg-column [clrDgField]="'horsepower'" [clrDgColType]="'number'">Horsepower</clr-dg-column>
+    <clr-dg-column [clrDgField]="'displacement'" [clrDgColType]="'number'">Displacement</clr-dg-column>
+    <clr-dg-column [clrDgField]="'fuelType.name'">Fuel</clr-dg-column>
+    <clr-dg-column>Colors</clr-dg-column>
+    <clr-dg-column [clrDgField]="'modifiedAt'">Last edition</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let truck of (trucks$ | async)" (click)="click(truck.id)">
+        <clr-dg-cell>{{truck.id}}</clr-dg-cell>
+        <clr-dg-cell>{{truck.model}}</clr-dg-cell>
+        <clr-dg-cell>{{truck.classification?.name}}</clr-dg-cell>
+        <clr-dg-cell>{{truck.horsepower}}</clr-dg-cell>
+        <clr-dg-cell>{{truck.displacement}}</clr-dg-cell>
+        <clr-dg-cell>{{truck.fuelType?.name}}</clr-dg-cell>
+        <clr-dg-cell>
+            <span *ngFor="let color of truck.colors" class="color-square"
+                [style.backgroundColor]="'#'+color.hex"></span>
+        </clr-dg-cell>
+        <clr-dg-cell>{{truck.modifiedAt | date:'medium'}}</clr-dg-cell>
+
+        <!-- <app-detail *clrIfExpanded [truckId]="truck.id" ngProjectAs="clr-dg-row-detail"></app-detail> -->
+    </clr-dg-row>
+
+    <clr-dg-footer>{{(trucks$ | async).length}} trucks</clr-dg-footer>
+</clr-datagrid>
+
+<button type="button" class="btn btn-info-outline" (click)="visible = false" [routerLink]="['/manager','create']">
+    <clr-icon shape="add"></clr-icon>
+    Add truck
+</button>

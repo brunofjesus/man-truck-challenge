@@ -1,0 +1,64 @@
+<form clrForm #truckForm="ngForm" (ngSubmit)="onSubmit(truckForm)">
+
+    <clr-modal [clrModalOpen]="true" [clrModalClosable]="false">
+        <h3 class="modal-title">{{truckIdInEdition ? "Edit Truck" : "Create Truck"}}</h3>
+        <div class="modal-body">
+            <clr-input-container>
+                <label>Model</label>
+                <input clrInput type="text" name="model" required [(ngModel)]="formModel.model"/>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Horsepower</label>
+                <input clrInput type="number" name="horsepower" [(ngModel)]="formModel.horsepower"/>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Displacement</label>
+                <input clrInput type="number" name="displacement" [(ngModel)]="formModel.displacement"/>
+            </clr-input-container>
+            <clr-select-container>
+                <label>Fuel Type</label>
+                <select clrSelect name="fuelType" [(ngModel)]="formModel.fuelTypeId">
+                    <option></option>
+                    <option *ngFor="let opt of (properties$ | async)?.fuelTypes" [value]="opt.id">{{opt.name}}
+                    </option>
+                </select>
+            </clr-select-container>
+            <clr-select-container>
+                <label>Classification</label>
+                <select clrSelect name="classification"  [(ngModel)]="formModel.classificationId">
+                    <option></option>
+                    <option *ngFor="let opt of (properties$ | async)?.classifications" [value]="opt.id">{{opt.name}}
+                    </option>
+                </select>
+            </clr-select-container>
+            <clr-checkbox-container>
+                <label>Applications</label>
+                <clr-checkbox-wrapper *ngFor="let opt of (properties$ | async)?.applications">
+                    <input type="checkbox" clrCheckbox name="applications" [checked]="formModel.applications[opt.id]" (change)="this.formModel.applications[opt.id] = $event.target.checked"/>
+                    <label>{{opt.name}}</label>
+                </clr-checkbox-wrapper>
+            </clr-checkbox-container>
+            <clr-checkbox-container>
+                <label>Colors</label>
+                <clr-checkbox-wrapper *ngFor="let opt of (properties$ | async)?.colors">
+                    <input type="checkbox" clrCheckbox name="colors" [checked]="formModel.colors[opt.id]" (change)="this.formModel.colors[opt.id] = $event.target.checked"/>
+                    <label>
+                        <span class="color-indicator" [style.backgroundColor]="'#'+opt.hex"></span>
+                        {{opt.name | titlecase}}
+                    </label>
+                </clr-checkbox-wrapper>
+            </clr-checkbox-container>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger-outline" [routerLink]="['/manager']">
+                <clr-icon shape="times"></clr-icon>
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-success" [disabled]="!truckForm.valid">
+                <clr-icon shape="floppy"></clr-icon>
+                Save
+            </button>
+        </div>
+    </clr-modal>
+</form>

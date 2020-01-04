@@ -19,9 +19,16 @@
     "@angular/platform-browser": "~8.2.8",
     "@angular/platform-browser-dynamic": "~8.2.8",
     "@angular/router": "~8.2.8",
+    "@clr/angular": "^2.3.4",
+    "@ngrx/effects": "^8.6.0",
+    "@ngrx/store": "^8.6.0",
+    "@ngrx/store-devtools": "^8.6.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@clr/ui": "2.3.4",
+    "@clr/icons": "2.3.4",
+    "@webcomponents/custom-elements": "^1.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.6",

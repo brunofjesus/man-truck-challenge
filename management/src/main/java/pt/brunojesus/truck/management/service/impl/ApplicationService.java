@@ -26,6 +26,12 @@ public class ApplicationService implements IApplicationService {
 
 	@Override
 	@Transactional(readOnly = true)
+	public List<Application> findAll() {
+		return CollectionUtils.fromIterable(applicationRepository.findAll());
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public List<Application> findAllByIds(List<Integer> ids) {
 
 		if (CollectionUtils.isEmpty(ids)) {

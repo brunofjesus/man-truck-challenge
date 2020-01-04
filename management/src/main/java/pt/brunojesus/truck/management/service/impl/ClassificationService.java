@@ -1,10 +1,13 @@
 package pt.brunojesus.truck.management.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pt.brunojesus.truck.foundation.aop.AutoLogger;
+import pt.brunojesus.truck.foundation.util.CollectionUtils;
 import pt.brunojesus.truck.management.service.IClassificationService;
 import pt.brunojesus.truck.model.domain.Classification;
 import pt.brunojesus.truck.persistence.repository.IClassificationRepository;
@@ -19,6 +22,12 @@ public class ClassificationService implements IClassificationService {
 	public ClassificationService(IClassificationRepository classificationRepository) {
 		super();
 		this.classificationRepository = classificationRepository;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Classification> findAll() {
+		return CollectionUtils.fromIterable(classificationRepository.findAll());
 	}
 
 	@Override

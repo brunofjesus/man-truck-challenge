@@ -14,11 +14,17 @@ import pt.brunojesus.truck.model.domain.Application;
 public interface IApplicationService {
 
 	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
+	List<Application> findAll();
+
+	/**
 	 * Find all by ids.
 	 *
 	 * @param ids the ids
 	 * @return the list
 	 */
 	public List<Application> findAllByIds(List<Integer> ids);
-
 }

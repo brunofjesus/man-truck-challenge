@@ -1,0 +1,46 @@
+<clr-modal [clrModalOpen]="true" [clrModalClosable]="false">
+    <h3 class="modal-title">Details</h3>
+    <div class="modal-body">
+
+        <app-text-item [label]="'ID:'" [value]="(truck$ | async)?.id" #id></app-text-item>
+
+        <app-text-item [label]="'Model:'" [value]="(truck$ | async)?.model"></app-text-item>
+
+        <app-text-item [label]="'Classification:'" [value]="(truck$ | async)?.classification?.name"></app-text-item>
+
+        <app-text-item [label]="'Horsepower:'" [value]="(truck$ | async)?.horsepower + ' hp'"></app-text-item>
+
+        <app-text-item [label]="'Displacement:'" [value]="(truck$ | async)?.displacement + ' cc'"></app-text-item>
+
+        <app-text-item [label]="'Fuel Type:'" [value]="(truck$ | async)?.fuelType?.name"></app-text-item>
+
+        <app-text-item [label]="'Applications:'" [value]="(truck$ | async)?.applications | pluck:'name' | join:', '">
+        </app-text-item>
+
+        <app-color-item [label]="'Colors:'" [colors]="(truck$ | async)?.colors"></app-color-item>
+
+        <app-text-item [label]="'Last Edition:'" [value]="(truck$ | async)?.modifiedAt | date:'medium'"></app-text-item>
+
+    </div>
+    <div class="modal-footer">
+        <span class="edit-buttons">
+            <button type="button" class="btn btn-info-outline" (click)="onClickEdit(id.value)">
+                <clr-icon shape="pencil"></clr-icon>
+                Edit
+            </button>
+            <button type="button" class="btn btn-danger-outline" (click)="onClickDelete()">
+                <clr-icon shape="trash"></clr-icon>
+                Delete
+            </button>
+        </span>
+
+        <button type="button" class="btn btn-success" (click)="onClickOk()">
+            <clr-icon shape="check"></clr-icon>
+            Ok
+        </button>
+    </div>
+</clr-modal>
+
+<app-modal-dialog [title]="'Delete truck'"
+    [text]="'Are you sure you want to delete this truck?|This operation is irreversible!'" [cancelButton]="true" [labelCancel]="'No'" [labelOk]="'Yes'" (submit)="$event === true ? onDeleteTruck() : undefined" #deleteDialog>
+</app-modal-dialog>

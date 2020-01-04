@@ -14,6 +14,13 @@ import pt.brunojesus.truck.model.domain.Color;
 public interface IColorService {
 
 	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
+	public List<Color> findAll();
+
+	/**
 	 * Find all by ids.
 	 *
 	 * @param ids the ids

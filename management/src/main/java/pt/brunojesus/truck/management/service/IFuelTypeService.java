@@ -1,5 +1,7 @@
 package pt.brunojesus.truck.management.service;
 
+import java.util.List;
+
 import pt.brunojesus.truck.model.domain.FuelType;
 
 /**
@@ -12,11 +14,17 @@ import pt.brunojesus.truck.model.domain.FuelType;
 public interface IFuelTypeService {
 
 	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
+	List<FuelType> findAll();
+
+	/**
 	 * Find by id.
 	 *
 	 * @param id the id
 	 * @return the fuel type
 	 */
 	public FuelType findById(int id);
-
 }

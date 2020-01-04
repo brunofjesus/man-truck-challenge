@@ -26,6 +26,12 @@ public class ColorService implements IColorService {
 
 	@Override
 	@Transactional(readOnly = true)
+	public List<Color> findAll() {
+		return CollectionUtils.fromIterable(colorRepository.findAll());
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public List<Color> findAllByIds(List<Integer> ids) {
 
 		if (CollectionUtils.isEmpty(ids)) {

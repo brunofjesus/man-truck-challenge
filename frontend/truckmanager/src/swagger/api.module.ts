@@ -3,6 +3,11 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { ApplicationsService } from './api/applications.service';
+import { ClassificationsService } from './api/classifications.service';
+import { ColorsService } from './api/colors.service';
+import { FuelTypesService } from './api/fuelTypes.service';
+import { TruckPropertiesService } from './api/truckProperties.service';
 import { TrucksService } from './api/trucks.service';
 
 @NgModule({
@@ -10,6 +15,11 @@ import { TrucksService } from './api/trucks.service';
   declarations: [],
   exports:      [],
   providers: [
+    ApplicationsService,
+    ClassificationsService,
+    ColorsService,
+    FuelTypesService,
+    TruckPropertiesService,
     TrucksService ]
 })
 export class ApiModule {

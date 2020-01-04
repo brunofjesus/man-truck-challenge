@@ -1,4 +1,4 @@
-package pt.brunojesus.truck.facade.api;
+package pt.brunojesus.truck.facade.configuration;
 
 import java.util.ArrayList;
 import java.util.List;

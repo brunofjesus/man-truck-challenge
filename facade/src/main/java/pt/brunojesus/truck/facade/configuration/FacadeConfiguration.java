@@ -67,7 +67,7 @@ public class FacadeConfiguration {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/trucks/**").allowedOrigins("*");
+				registry.addMapping("/**").allowedHeaders("*").allowedMethods("*").allowedOrigins("*");
 			}
 		};
 	}
