@@ -233,7 +233,7 @@
       },
       "FuelTypeDTO" : {
         "type" : "object",
-        "required" : [ "id", "name" ],
+        "required" : [ "id" ],
         "properties" : {
           "id" : {
             "type" : "integer",
@@ -246,7 +246,7 @@
       },
       "ClassificationDTO" : {
         "type" : "object",
-        "required" : [ "id", "name" ],
+        "required" : [ "id" ],
         "properties" : {
           "id" : {
             "type" : "integer",
@@ -259,7 +259,7 @@
       },
       "ApplicationDTO" : {
         "type" : "object",
-        "required" : [ "id", "name" ],
+        "required" : [ "id" ],
         "properties" : {
           "id" : {
             "type" : "integer",
@@ -272,7 +272,7 @@
       },
       "ColorDTO" : {
         "type" : "object",
-        "required" : [ "id", "name", "hex" ],
+        "required" : [ "id" ],
         "properties" : {
           "id" : {
             "type" : "integer",

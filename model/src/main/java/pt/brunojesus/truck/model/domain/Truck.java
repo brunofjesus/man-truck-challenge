@@ -1,7 +1,6 @@
 package pt.brunojesus.truck.model.domain;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,7 +38,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "truck")
 public class Truck {
-	
+
 	public static final String PROPERTY_ID = "id";
 	public static final String PROPERTY_MODEL = "model";
 	public static final String PROPERTY_HORSEPOWER = "horsepower";
@@ -56,33 +55,33 @@ public class Truck {
 	@SequenceGenerator(name = "seq_truck", sequenceName = "seq_truck", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
-	
+
 	@NotNull
 	@Column(name = "model")
 	private String model;
-	
+
 	@Column(name = "horsepower")
 	private Float horsepower;
-	
+
 	@Column(name = "displacement")
 	private Float displacement;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fuel_type_id")
 	private FuelType fuelType;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "classification_id")
 	private Classification classification;
-	
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	private List<RelTruckApplication> relTruckApplications;
-	
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	private List<RelTruckColor> relTruckColors;
-	
+
 	@Version
 	@Column(name = "modified_at")
 	private Timestamp modificationTimestamp;

@@ -1,10 +1,12 @@
 package pt.brunojesus.truck.management.service.impl;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -30,14 +32,16 @@ public class TruckService implements ITruckService {
 	private final ITruckRepository truckRepository;
 	private final IRelTruckApplicationService relTruckApplicationService;
 	private final IRelTruckColorService relTruckColorService;
+	private final Consumer<Truck> truckValidator;
 
 	@Autowired
 	public TruckService(ITruckRepository truckRepository, IRelTruckApplicationService relTruckApplicationService,
-			IRelTruckColorService relTruckColorService) {
+			IRelTruckColorService relTruckColorService, @Qualifier("truckValidator") Consumer<Truck> truckValidator) {
 
 		this.truckRepository = truckRepository;
 		this.relTruckApplicationService = relTruckApplicationService;
 		this.relTruckColorService = relTruckColorService;
+		this.truckValidator = truckValidator;
 	}
 
 	@Override
@@ -55,6 +59,7 @@ public class TruckService implements ITruckService {
 	@Override
 	@Transactional
 	public Truck update(@NonNull Truck updatedTruck) throws ResourceNotFoundException {
+		truckValidator.accept(updatedTruck);
 
 		Truck dbTruck = getOne(updatedTruck.getId());
 
@@ -80,8 +85,9 @@ public class TruckService implements ITruckService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = { Exception.class })
 	public Truck save(Truck truck) {
+		truckValidator.accept(truck);
 
 		if (truck.getId() > 0) {
 			throw new ValidationException("Cannot specify id to insert");

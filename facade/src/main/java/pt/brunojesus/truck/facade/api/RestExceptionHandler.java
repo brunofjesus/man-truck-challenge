@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
@@ -158,8 +159,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(final HttpMediaTypeNotSupportedException ex,
 			final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-		logger.info(ex.getClass().getName());
-		//
 		final StringBuilder builder = new StringBuilder();
 		builder.append(ex.getContentType());
 		builder.append(" media type is not supported. Supported media types are ");
@@ -167,6 +166,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 		final ErrorDTO errorDTO = new ErrorDTO().id(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
 				.message(ex.getLocalizedMessage() + " - " + builder.substring(0, builder.length() - 1));
+		return new ResponseEntity<Object>(errorDTO, HttpStatus.valueOf(errorDTO.getId()));
+	}
+
+	// 422
+
+	@ExceptionHandler({ ValidationException.class })
+	protected ResponseEntity<Object> handleHttpUnprocessableEntity(final Exception ex) {
+		final ErrorDTO errorDTO = new ErrorDTO().id(HttpStatus.UNPROCESSABLE_ENTITY.value())
+				.message(ex.getLocalizedMessage());
 		return new ResponseEntity<Object>(errorDTO, HttpStatus.valueOf(errorDTO.getId()));
 	}
 
