@@ -4,6 +4,13 @@ import java.util.List;
 
 import pt.brunojesus.truck.model.domain.Application;
 
+/**
+ * The Interface IApplicationService.
+ * 
+ * Service for {@link pt.brunojesus.truck.model.domain.Application}.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.IApplicationRepository
+ */
 public interface IApplicationService {
 
 	/**
@@ -12,6 +19,6 @@ public interface IApplicationService {
 	 * @param ids the ids
 	 * @return the list
 	 */
-	List<Application> findAllByIds(List<Integer> ids);
+	public List<Application> findAllByIds(List<Integer> ids);
 
 }

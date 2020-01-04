@@ -5,6 +5,13 @@ import java.util.List;
 import pt.brunojesus.truck.foundation.exception.ResourceNotFoundException;
 import pt.brunojesus.truck.model.domain.Truck;
 
+/**
+ * The Interface ITruckService.
+ * 
+ * Service for {@link pt.brunojesus.truck.model.domain.Truck}.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.ITruckRepository
+ */
 public interface ITruckService {
 
 	/**

@@ -8,20 +8,19 @@ import org.springframework.stereotype.Component;
 public class GenericMapper implements IGenericMapper {
 
 	private final ModelMapper modelMapper;
-	
+
 	@Autowired
 	public GenericMapper(ModelMapper modelMapper) {
 		super();
 		this.modelMapper = modelMapper;
 	}
 
-	
 	public <T> T map(Object object, Class<T> targetClass) {
-		
+
 		if (object == null) {
 			return null;
 		}
-		
+
 		return modelMapper.map(object, targetClass);
 	}
 

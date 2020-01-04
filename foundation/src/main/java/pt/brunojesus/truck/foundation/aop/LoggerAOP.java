@@ -10,6 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class LoggerAOP.
+ * 
+ * Logs the entering and going out of annotated classes and methods.
+ * 
+ * Also logs all the exceptions in {@link pt.brunojesus.truck}
+ * 
+ * @see AutoLogger
+ */
 @Aspect
 @Component
 public class LoggerAOP {

@@ -29,6 +29,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import pt.brunojesus.truck.codegen.dto.ErrorDTO;
 import pt.brunojesus.truck.foundation.exception.ResourceNotFoundException;
 
+/**
+ * The Class RestExceptionHandler.
+ * 
+ * Handles errors and returns an response entity with a suitable ErrorDTO
+ */
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 

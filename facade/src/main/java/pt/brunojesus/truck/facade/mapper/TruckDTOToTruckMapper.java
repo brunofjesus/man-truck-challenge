@@ -2,10 +2,8 @@ package pt.brunojesus.truck.facade.mapper;
 
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,17 @@ import pt.brunojesus.truck.model.domain.RelTruckColor;
 import pt.brunojesus.truck.model.domain.RelTruckColorId;
 import pt.brunojesus.truck.model.domain.Truck;
 
+/**
+ * The Class TruckDTOToTruckMapper.
+ * 
+ * Maps a {@link pt.brunojesus.truck.codegen.dto.TruckDTO} to a
+ * {@link pt.brunojesus.truck.model.domain.Truck} object
+ * 
+ * @see pt.brunojesus.truck.codegen.dto.TruckDTO
+ * @see pt.brunojesus.truck.model.domain.Truck
+ * @see pt.brunojesus.truck.facade.mapper.IGenericMapper;
+ * @see pt.brunojesus.truck.facade.mapper.OffsetDateTimeToTimestampMapper
+ */
 @Component("truckDTOToTruckMapper")
 public class TruckDTOToTruckMapper implements Function<TruckDTO, Truck> {
 
@@ -65,10 +74,10 @@ public class TruckDTOToTruckMapper implements Function<TruckDTO, Truck> {
 					.map(color -> RelTruckColor.builder().color(color).truck(result)
 							.id(new RelTruckColorId(result.getId(), color.getId())).build())
 					.collect(Collectors.toList());
-			
+
 			result.setRelTruckColors(relTruckColors);
 		}
-		
+
 		return result;
 	}
 }

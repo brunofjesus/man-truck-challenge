@@ -21,6 +21,16 @@ import pt.brunojesus.truck.model.domain.Application;
 import pt.brunojesus.truck.model.domain.Color;
 import pt.brunojesus.truck.model.domain.Truck;
 
+/**
+ * The Class TruckValidator.
+ * 
+ * Validates if the {@link pt.brunojesus.truck.model.domain.Truck} is valid
+ * 
+ * @see pt.brunojesus.truck.management.service.IClassificationService
+ * @see pt.brunojesus.truck.management.service.IFuelTypeService
+ * @see pt.brunojesus.truck.management.service.IApplicationService
+ * @see pt.brunojesus.truck.management.service.IColorService
+ */
 @Component("truckValidator")
 @AutoLogger
 public class TruckValidator implements Consumer<Truck> {
@@ -75,7 +85,7 @@ public class TruckValidator implements Consumer<Truck> {
 						.collect(Collectors.toSet());
 
 				List<String> notFoundApplicationIds = CollectionUtils
-						.itemsNotInList(applicationIds, foundApplicationIds).stream().map(String::valueOf)
+						.itemsNotInCollection(applicationIds, foundApplicationIds).stream().map(String::valueOf)
 						.collect(Collectors.toList());
 
 				throw new ValidationException("Invalid application ids: " + String.join(", ", notFoundApplicationIds));
@@ -94,7 +104,7 @@ public class TruckValidator implements Consumer<Truck> {
 				Set<Integer> foundColorIds = foundColors.stream().map(color -> color.getId())
 						.collect(Collectors.toSet());
 
-				List<String> notFoundColorIds = CollectionUtils.itemsNotInList(colorIds, foundColorIds).stream()
+				List<String> notFoundColorIds = CollectionUtils.itemsNotInCollection(colorIds, foundColorIds).stream()
 						.map(String::valueOf).collect(Collectors.toList());
 
 				throw new ValidationException("Invalid color ids: " + String.join(", ", notFoundColorIds));

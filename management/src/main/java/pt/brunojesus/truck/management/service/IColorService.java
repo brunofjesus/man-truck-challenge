@@ -4,6 +4,13 @@ import java.util.List;
 
 import pt.brunojesus.truck.model.domain.Color;
 
+/**
+ * The Interface IColorService.
+ * 
+ * Service for {@link pt.brunojesus.truck.model.domain.Color}.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.IColorRepository
+ */
 public interface IColorService {
 
 	/**
@@ -12,6 +19,6 @@ public interface IColorService {
 	 * @param ids the ids
 	 * @return the list
 	 */
-	List<Color> findAllByIds(List<Integer> ids);
+	public List<Color> findAllByIds(List<Integer> ids);
 
 }

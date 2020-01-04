@@ -9,7 +9,12 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class BaseRepository {
+/**
+ * The Class BaseRepository.
+ * 
+ * Common methods for repositories
+ */
+public abstract class BaseRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;

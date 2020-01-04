@@ -14,24 +14,41 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @Configuration
 public class FacadeConfiguration {
 
+	/**
+	 * Model mapper.
+	 * 
+	 * Maps objects directly
+	 *
+	 * @return the model mapper
+	 */
 	@Bean
 	public ModelMapper modelMapper() {
-	    ModelMapper modelMapper = new ModelMapper();
-	    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-	    return modelMapper;
+		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		return modelMapper;
 	}
-	
+
+	/**
+	 * Object mapper.
+	 * 
+	 * Serializes objects
+	 *
+	 * @return the object mapper
+	 */
 	@Bean
 	public ObjectMapper objectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
+
+		// Hibernate configurations, disable lazy loading and keep ids on lazys
 		Hibernate5Module hibernate5Module = new Hibernate5Module();
 		hibernate5Module.disable(Feature.FORCE_LAZY_LOADING);
 		hibernate5Module.enable(Feature.SERIALIZE_IDENTIFIER_FOR_LAZY_NOT_LOADED_OBJECTS);
 		mapper.registerModule(hibernate5Module);
-		
+
+		// Date serialization to ISO
 		mapper.registerModule(new JavaTimeModule());
 		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		
+
 		return mapper;
 	}
 }

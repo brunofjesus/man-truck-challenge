@@ -6,6 +6,13 @@ import org.springframework.data.domain.Sort.Order;
 
 import pt.brunojesus.truck.model.domain.Truck;
 
+/**
+ * The Interface ITruckRepository.
+ * 
+ * Repository for {@link pt.brunojesus.truck.model.domain.Truck}.
+ * 
+ * @see pt.brunojesus.truck.management.service.ITruckService
+ */
 public interface ITruckRepository {
 
 	/**

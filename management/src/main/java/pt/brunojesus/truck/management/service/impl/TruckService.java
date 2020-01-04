@@ -25,6 +25,14 @@ import pt.brunojesus.truck.model.domain.RelTruckColorId;
 import pt.brunojesus.truck.model.domain.Truck;
 import pt.brunojesus.truck.persistence.repository.ITruckRepository;
 
+/**
+ * The Class TruckService.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.ITruckRepository
+ * @see pt.brunojesus.truck.management.service.IRelTruckApplicationService
+ * @see pt.brunojesus.truck.management.service.IRelTruckColorService
+ * @see pt.brunojesus.truck.management.validator.TruckValidator
+ */
 @Service
 @AutoLogger
 public class TruckService implements ITruckService {
@@ -68,17 +76,17 @@ public class TruckService implements ITruckService {
 		}
 
 		// Update many to many relations
-		CollectionUtils.itemsNotInList(dbTruck.getRelTruckApplications(), updatedTruck.getRelTruckApplications())
+		CollectionUtils.itemsNotInCollection(dbTruck.getRelTruckApplications(), updatedTruck.getRelTruckApplications())
 				.stream().forEach(relTruckApplicationService::delete);
 
-		CollectionUtils.itemsNotInList(updatedTruck.getRelTruckApplications(), dbTruck.getRelTruckApplications())
+		CollectionUtils.itemsNotInCollection(updatedTruck.getRelTruckApplications(), dbTruck.getRelTruckApplications())
 				.stream().map(r -> RelTruckApplication.builder().id(r.getId()).build())
 				.forEach(relTruckApplicationService::save);
 
-		CollectionUtils.itemsNotInList(dbTruck.getRelTruckColors(), updatedTruck.getRelTruckColors()).stream()
+		CollectionUtils.itemsNotInCollection(dbTruck.getRelTruckColors(), updatedTruck.getRelTruckColors()).stream()
 				.forEach(relTruckColorService::delete);
 
-		CollectionUtils.itemsNotInList(updatedTruck.getRelTruckColors(), dbTruck.getRelTruckColors()).stream()
+		CollectionUtils.itemsNotInCollection(updatedTruck.getRelTruckColors(), dbTruck.getRelTruckColors()).stream()
 				.map(r -> RelTruckColor.builder().id(r.getId()).build()).forEach(relTruckColorService::save);
 
 		return truckRepository.update(updatedTruck);

@@ -23,13 +23,25 @@ import pt.brunojesus.truck.model.domain.RelTruckApplication;
 import pt.brunojesus.truck.model.domain.RelTruckColor;
 import pt.brunojesus.truck.model.domain.Truck;
 
+/**
+ * The Class TruckToTruckDTOMapper.
+ * 
+ * Maps a {@link pt.brunojesus.truck.model.domain.Truck} to a
+ * {@link pt.brunojesus.truck.codegen.dto.TruckDTO} object
+ * 
+ * @see pt.brunojesus.truck.model.domain.Truck
+ * @see pt.brunojesus.truck.codegen.dto.TruckDTO
+ * @see pt.brunojesus.truck.facade.mapper.IGenericMapper;
+ * @see com.fasterxml.jackson.databind.ObjectMapper
+ * @see pt.brunojesus.truck.facade.mapper.DateToOffsetDateTimeMapper
+ */
 @Component("truckToTruckDTOMapper")
 public class TruckToTruckDTOMapper implements Function<Truck, TruckDTO> {
 
 	private final ObjectMapper objectMapper;
 	private final IGenericMapper genericMapper;
 	private final Function<Date, OffsetDateTime> dateToOffsetDateTimeMapper;
-	
+
 	private final static Predicate<Object> notNull = (o) -> o != null;
 
 	@Autowired
@@ -44,7 +56,7 @@ public class TruckToTruckDTOMapper implements Function<Truck, TruckDTO> {
 	@Override
 	public TruckDTO apply(Truck truck) {
 		TruckDTO result = null;
-		Truck d = objectMapper.convertValue(truck, Truck.class); //detach from hibernate without triggering lazy loads
+		Truck d = objectMapper.convertValue(truck, Truck.class); // detach from hibernate without triggering lazy loads
 
 		result = new TruckDTO() //
 				.id(d.getId()) //
@@ -55,7 +67,6 @@ public class TruckToTruckDTOMapper implements Function<Truck, TruckDTO> {
 				.fuelType(genericMapper.map(d.getFuelType(), FuelTypeDTO.class)) //
 				.classification(genericMapper.map(d.getClassification(), ClassificationDTO.class)); //
 
-		
 		// Applications
 		if (CollectionUtils.isEmpty(d.getRelTruckApplications()) == false) {
 			List<ApplicationDTO> applicationDTOs = d.getRelTruckApplications().stream() //

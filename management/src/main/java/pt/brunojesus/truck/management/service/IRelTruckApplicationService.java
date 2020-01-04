@@ -1,9 +1,14 @@
 package pt.brunojesus.truck.management.service;
 
-import java.util.List;
-
 import pt.brunojesus.truck.model.domain.RelTruckApplication;
 
+/**
+ * The Interface IRelTruckApplicationService.
+ * 
+ * Service for {@link pt.brunojesus.truck.model.domain.RelTruckApplication}.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.IRelTruckApplicationRepository
+ */
 public interface IRelTruckApplicationService {
 
 	/**
