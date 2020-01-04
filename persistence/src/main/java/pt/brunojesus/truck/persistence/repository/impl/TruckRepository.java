@@ -6,6 +6,7 @@ import org.hibernate.query.Query;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Repository;
 
+import pt.brunojesus.truck.foundation.aop.AutoLogger;
 import pt.brunojesus.truck.model.domain.RelTruckApplication;
 import pt.brunojesus.truck.model.domain.RelTruckColor;
 import pt.brunojesus.truck.model.domain.Truck;
@@ -13,6 +14,7 @@ import pt.brunojesus.truck.persistence.foundation.BaseRepository;
 import pt.brunojesus.truck.persistence.repository.ITruckRepository;
 
 @Repository
+@AutoLogger
 public class TruckRepository extends BaseRepository implements ITruckRepository {
 
 	@Override

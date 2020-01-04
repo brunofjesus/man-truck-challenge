@@ -2,7 +2,7 @@ package pt.brunojesus.truck.management.service;
 
 import java.util.List;
 
-import pt.brunojesus.truck.foundation.exception.NotFoundException;
+import pt.brunojesus.truck.foundation.exception.ResourceNotFoundException;
 import pt.brunojesus.truck.model.domain.Truck;
 
 public interface ITruckService {
@@ -27,9 +27,9 @@ public interface ITruckService {
 	 *
 	 * @param updatedTruck the updated truck
 	 * @return the truck
-	 * @throws NotFoundException
+	 * @throws ResourceNotFoundException
 	 */
-	public Truck update(Truck updatedTruck) throws NotFoundException;
+	public Truck update(Truck updatedTruck) throws ResourceNotFoundException;
 
 	/**
 	 * Save.
@@ -43,7 +43,7 @@ public interface ITruckService {
 	 * Delete truck by id.
 	 *
 	 * @param truckId the truck id
-	 * @throws NotFoundException
+	 * @throws ResourceNotFoundException
 	 */
-	public void deleteById(Long truckId) throws NotFoundException;
+	public void deleteById(Long truckId) throws ResourceNotFoundException;
 }

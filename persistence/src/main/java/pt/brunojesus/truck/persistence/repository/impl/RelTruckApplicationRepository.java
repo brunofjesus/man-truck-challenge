@@ -2,11 +2,13 @@ package pt.brunojesus.truck.persistence.repository.impl;
 
 import org.springframework.stereotype.Repository;
 
+import pt.brunojesus.truck.foundation.aop.AutoLogger;
 import pt.brunojesus.truck.model.domain.RelTruckApplication;
 import pt.brunojesus.truck.persistence.foundation.BaseRepository;
 import pt.brunojesus.truck.persistence.repository.IRelTruckApplicationRepository;
 
 @Repository
+@AutoLogger
 public class RelTruckApplicationRepository extends BaseRepository implements IRelTruckApplicationRepository {
 
 	@Override

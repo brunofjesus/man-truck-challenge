@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pt.brunojesus.truck.codegen.api.TrucksApi;
 import pt.brunojesus.truck.codegen.dto.TruckDTO;
-import pt.brunojesus.truck.foundation.exception.NotFoundException;
+import pt.brunojesus.truck.foundation.aop.AutoLogger;
 import pt.brunojesus.truck.management.service.ITruckService;
 import pt.brunojesus.truck.model.domain.Truck;
 
 @RestController
+@AutoLogger
 public class TruckController implements TrucksApi {
 
 	private final ITruckService truckService;
@@ -49,11 +50,8 @@ public class TruckController implements TrucksApi {
 
 	@Override
 	public ResponseEntity<Void> deleteTruck(Long truckId) {
-		try {
-			truckService.deleteById(truckId);
-		} catch (NotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
+
+		truckService.deleteById(truckId);
 
 		return ResponseEntity.noContent().build();
 	}
@@ -88,13 +86,8 @@ public class TruckController implements TrucksApi {
 
 		Truck truck = truckDTOToTruckMapper.apply(body);
 
-		try {
-			truckService.update(truck);
-		} catch (NotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
+		truckService.update(truck);
 
 		return ResponseEntity.noContent().build();
 	}
-
 }

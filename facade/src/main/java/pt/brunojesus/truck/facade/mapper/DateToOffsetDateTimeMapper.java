@@ -8,15 +8,15 @@ import java.util.function.Function;
 import org.springframework.stereotype.Component;
 
 @Component("dateToOffsetDateTimeMapper")
-public class DateToOffsetDateTimeMapper implements Function<Date, OffsetDateTime>{
+public class DateToOffsetDateTimeMapper implements Function<Date, OffsetDateTime> {
 
 	@Override
 	public OffsetDateTime apply(Date t) {
-		
+
 		if (t == null) {
 			return null;
 		}
-		
+
 		return OffsetDateTime.ofInstant(t.toInstant(), ZoneId.systemDefault());
 	}
 

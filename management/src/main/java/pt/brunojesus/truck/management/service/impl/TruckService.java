@@ -10,7 +10,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pt.brunojesus.truck.foundation.exception.NotFoundException;
+import pt.brunojesus.truck.foundation.aop.AutoLogger;
+import pt.brunojesus.truck.foundation.exception.ResourceNotFoundException;
 import pt.brunojesus.truck.foundation.util.CollectionUtils;
 import pt.brunojesus.truck.management.service.IRelTruckApplicationService;
 import pt.brunojesus.truck.management.service.IRelTruckColorService;
@@ -23,6 +24,7 @@ import pt.brunojesus.truck.model.domain.Truck;
 import pt.brunojesus.truck.persistence.repository.ITruckRepository;
 
 @Service
+@AutoLogger
 public class TruckService implements ITruckService {
 
 	private final ITruckRepository truckRepository;
@@ -52,12 +54,12 @@ public class TruckService implements ITruckService {
 
 	@Override
 	@Transactional
-	public Truck update(@NonNull Truck updatedTruck) throws NotFoundException {
+	public Truck update(@NonNull Truck updatedTruck) throws ResourceNotFoundException {
 
 		Truck dbTruck = getOne(updatedTruck.getId());
 
 		if (dbTruck == null) {
-			throw new NotFoundException("Cannot find truck");
+			throw new ResourceNotFoundException("Cannot find truck");
 		}
 
 		// Update many to many relations
@@ -109,12 +111,12 @@ public class TruckService implements ITruckService {
 
 	@Override
 	@Transactional
-	public void deleteById(Long truckId) throws NotFoundException {
+	public void deleteById(Long truckId) throws ResourceNotFoundException {
 
 		Truck dbTruck = getOne(truckId);
 
 		if (dbTruck == null) {
-			throw new NotFoundException("Cannot find truck");
+			throw new ResourceNotFoundException("Cannot find truck");
 		}
 
 		if (CollectionUtils.isEmpty(dbTruck.getRelTruckApplications()) == false) {
