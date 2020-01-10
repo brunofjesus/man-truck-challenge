@@ -75,11 +75,11 @@ public class Truck {
 	private Classification classification;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RelTruckApplication> relTruckApplications;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	@OneToMany(mappedBy = "truck", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RelTruckColor> relTruckColors;
 
 	@Version

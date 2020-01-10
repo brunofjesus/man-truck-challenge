@@ -14,14 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pt.brunojesus.truck.foundation.aop.AutoLogger;
 import pt.brunojesus.truck.foundation.exception.ResourceNotFoundException;
-import pt.brunojesus.truck.foundation.util.CollectionUtils;
 import pt.brunojesus.truck.management.service.IRelTruckApplicationService;
 import pt.brunojesus.truck.management.service.IRelTruckColorService;
 import pt.brunojesus.truck.management.service.ITruckService;
-import pt.brunojesus.truck.model.domain.RelTruckApplication;
-import pt.brunojesus.truck.model.domain.RelTruckApplicationId;
-import pt.brunojesus.truck.model.domain.RelTruckColor;
-import pt.brunojesus.truck.model.domain.RelTruckColorId;
 import pt.brunojesus.truck.model.domain.Truck;
 import pt.brunojesus.truck.persistence.repository.ITruckRepository;
 
@@ -38,8 +33,6 @@ import pt.brunojesus.truck.persistence.repository.ITruckRepository;
 public class TruckService implements ITruckService {
 
 	private final ITruckRepository truckRepository;
-	private final IRelTruckApplicationService relTruckApplicationService;
-	private final IRelTruckColorService relTruckColorService;
 	private final Consumer<Truck> truckValidator;
 
 	@Autowired
@@ -47,8 +40,6 @@ public class TruckService implements ITruckService {
 			IRelTruckColorService relTruckColorService, @Qualifier("truckValidator") Consumer<Truck> truckValidator) {
 
 		this.truckRepository = truckRepository;
-		this.relTruckApplicationService = relTruckApplicationService;
-		this.relTruckColorService = relTruckColorService;
 		this.truckValidator = truckValidator;
 	}
 
@@ -75,20 +66,6 @@ public class TruckService implements ITruckService {
 			throw new ResourceNotFoundException("Cannot find truck");
 		}
 
-		// Update many to many relations
-		CollectionUtils.itemsNotInCollection(dbTruck.getRelTruckApplications(), updatedTruck.getRelTruckApplications())
-				.stream().forEach(relTruckApplicationService::delete);
-
-		CollectionUtils.itemsNotInCollection(updatedTruck.getRelTruckApplications(), dbTruck.getRelTruckApplications())
-				.stream().map(r -> RelTruckApplication.builder().id(r.getId()).build())
-				.forEach(relTruckApplicationService::save);
-
-		CollectionUtils.itemsNotInCollection(dbTruck.getRelTruckColors(), updatedTruck.getRelTruckColors()).stream()
-				.forEach(relTruckColorService::delete);
-
-		CollectionUtils.itemsNotInCollection(updatedTruck.getRelTruckColors(), dbTruck.getRelTruckColors()).stream()
-				.map(r -> RelTruckColor.builder().id(r.getId()).build()).forEach(relTruckColorService::save);
-
 		return truckRepository.update(updatedTruck);
 	}
 
@@ -101,24 +78,7 @@ public class TruckService implements ITruckService {
 			throw new ValidationException("Cannot specify id to insert");
 		}
 
-		List<RelTruckApplication> relTruckApplications = truck.getRelTruckApplications();
-		List<RelTruckColor> relTruckColors = truck.getRelTruckColors();
-
 		Truck result = truckRepository.save(truck);
-
-		if (CollectionUtils.isEmpty(relTruckApplications) == false) {
-			relTruckApplications.stream()
-					.map(r -> RelTruckApplication.builder()
-							.id(new RelTruckApplicationId(result.getId(), r.getId().getApplicationId())).build())
-					.forEach(relTruckApplicationService::save);
-		}
-
-		if (CollectionUtils.isEmpty(relTruckColors) == false) {
-			relTruckColors
-					.stream().map(r -> RelTruckColor.builder()
-							.id(new RelTruckColorId(result.getId(), r.getId().getColorId())).build())
-					.forEach(relTruckColorService::save);
-		}
 
 		return result;
 	}
@@ -131,14 +91,6 @@ public class TruckService implements ITruckService {
 
 		if (dbTruck == null) {
 			throw new ResourceNotFoundException("Cannot find truck");
-		}
-
-		if (CollectionUtils.isEmpty(dbTruck.getRelTruckApplications()) == false) {
-			dbTruck.getRelTruckApplications().stream().forEach(relTruckApplicationService::delete);
-		}
-
-		if (CollectionUtils.isEmpty(dbTruck.getRelTruckColors()) == false) {
-			dbTruck.getRelTruckColors().stream().forEach(relTruckColorService::delete);
 		}
 
 		truckRepository.delete(dbTruck);

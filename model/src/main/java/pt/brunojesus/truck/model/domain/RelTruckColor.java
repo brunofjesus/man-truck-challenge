@@ -28,21 +28,21 @@ import lombok.ToString;
 @Table(name = "rel_truck_color")
 public class RelTruckColor {
 
+	public static final String PROPERTY_ID = "id";
 	public static final String PROPERTY_TRUCK = "truck";
 	public static final String PROPERTY_COLOR = "color";
-	
+
 	@EmbeddedId
 	@EqualsAndHashCode.Include
 	RelTruckColorId id;
-	
+
 	@ManyToOne
-	@MapsId("truck_id")
-	@JoinColumn(name = "truck_id")
+	@MapsId("truckId")
+	@JoinColumn(name = "truck_id", nullable = false, insertable = false, updatable = false)
 	@JsonBackReference
 	private Truck truck;
-	
+
 	@ManyToOne
-	@MapsId("color_id")
-	@JoinColumn(name = "color_id")
+	@JoinColumn(name = "color_id", nullable = false, insertable = false, updatable = false)
 	private Color color;
 }

@@ -27,7 +27,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "rel_truck_application")
 public class RelTruckApplication {
-	
+
 	public static final String PROPERTY_ID = "id";
 	public static final String PROPERTY_TRUCK = "truck";
 	public static final String PROPERTY_APPLICATION = "application";
@@ -35,15 +35,14 @@ public class RelTruckApplication {
 	@EmbeddedId
 	@EqualsAndHashCode.Include
 	RelTruckApplicationId id;
-	
+
 	@ManyToOne
-	@MapsId("truck_id")
-	@JoinColumn(name = "truck_id")
+	@MapsId("truckId")
+	@JoinColumn(name = "truck_id", nullable = false, insertable = false, updatable = false)
 	@JsonBackReference
 	private Truck truck;
-	
+
 	@ManyToOne
-	@MapsId("application_id")
-	@JoinColumn(name = "application_id")
+	@JoinColumn(name = "application_id", nullable = false, insertable = false, updatable = false)
 	private Application application;
 }
