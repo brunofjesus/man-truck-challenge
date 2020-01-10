@@ -12,6 +12,11 @@ import pt.brunojesus.truck.management.service.IColorService;
 import pt.brunojesus.truck.model.domain.Color;
 import pt.brunojesus.truck.persistence.repository.IColorRepository;
 
+/**
+ * The Class ColorService.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.IColorRepository
+ */
 @Service
 @AutoLogger
 public class ColorService implements IColorService {

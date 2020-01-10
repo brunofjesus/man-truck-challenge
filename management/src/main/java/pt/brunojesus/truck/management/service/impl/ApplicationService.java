@@ -12,6 +12,11 @@ import pt.brunojesus.truck.management.service.IApplicationService;
 import pt.brunojesus.truck.model.domain.Application;
 import pt.brunojesus.truck.persistence.repository.IApplicationRepository;
 
+/**
+ * The Class ApplicationService.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.IApplicationRepository
+ */
 @Service
 @AutoLogger
 public class ApplicationService implements IApplicationService {

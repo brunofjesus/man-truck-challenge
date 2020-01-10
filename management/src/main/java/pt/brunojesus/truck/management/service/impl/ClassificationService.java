@@ -12,6 +12,11 @@ import pt.brunojesus.truck.management.service.IClassificationService;
 import pt.brunojesus.truck.model.domain.Classification;
 import pt.brunojesus.truck.persistence.repository.IClassificationRepository;
 
+/**
+ * The Class ClassificationService.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.IClassificationRepository
+ */
 @Service
 @AutoLogger
 public class ClassificationService implements IClassificationService {

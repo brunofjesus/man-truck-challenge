@@ -12,6 +12,11 @@ import pt.brunojesus.truck.management.service.IFuelTypeService;
 import pt.brunojesus.truck.model.domain.FuelType;
 import pt.brunojesus.truck.persistence.repository.IFuelTypeRepository;
 
+/**
+ * The Class FuelTypeService.
+ * 
+ * @see pt.brunojesus.truck.persistence.repository.IFuelTypeRepository
+ */
 @Service
 @AutoLogger
 public class FuelTypeService implements IFuelTypeService {

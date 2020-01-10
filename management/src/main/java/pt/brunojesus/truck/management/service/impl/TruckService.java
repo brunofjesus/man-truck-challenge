@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pt.brunojesus.truck.foundation.aop.AutoLogger;
 import pt.brunojesus.truck.foundation.exception.ResourceNotFoundException;
-import pt.brunojesus.truck.management.service.IRelTruckApplicationService;
-import pt.brunojesus.truck.management.service.IRelTruckColorService;
 import pt.brunojesus.truck.management.service.ITruckService;
 import pt.brunojesus.truck.model.domain.Truck;
 import pt.brunojesus.truck.persistence.repository.ITruckRepository;
@@ -24,8 +22,6 @@ import pt.brunojesus.truck.persistence.repository.ITruckRepository;
  * The Class TruckService.
  * 
  * @see pt.brunojesus.truck.persistence.repository.ITruckRepository
- * @see pt.brunojesus.truck.management.service.IRelTruckApplicationService
- * @see pt.brunojesus.truck.management.service.IRelTruckColorService
  * @see pt.brunojesus.truck.management.validator.TruckValidator
  */
 @Service
@@ -36,8 +32,7 @@ public class TruckService implements ITruckService {
 	private final Consumer<Truck> truckValidator;
 
 	@Autowired
-	public TruckService(ITruckRepository truckRepository, IRelTruckApplicationService relTruckApplicationService,
-			IRelTruckColorService relTruckColorService, @Qualifier("truckValidator") Consumer<Truck> truckValidator) {
+	public TruckService(ITruckRepository truckRepository, @Qualifier("truckValidator") Consumer<Truck> truckValidator) {
 
 		this.truckRepository = truckRepository;
 		this.truckValidator = truckValidator;

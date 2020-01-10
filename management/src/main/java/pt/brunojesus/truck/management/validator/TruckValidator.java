@@ -51,29 +51,44 @@ public class TruckValidator implements Consumer<Truck> {
 	}
 
 	@Override
-	public void accept(Truck t) {
-		if (t == null) {
+	public void accept(Truck truck) {
+		if (truck == null) {
 			throw new IllegalArgumentException("Truck cannot be null");
 		}
 
-		if (t.getClassification() != null) {
-			try {
-				classificationService.findById(t.getClassification().getId());
-			} catch (NoSuchElementException nse) {
-				throw new ValidationException("Invalid classification id: " + t.getClassification().getId());
+		validateClassification(truck);
+
+		validateFuelType(truck);
+
+		validateRelTruckApplications(truck);
+
+		validateRelTruckColors(truck);
+	}
+
+	private void validateRelTruckColors(Truck truck) {
+		if (CollectionUtils.isEmpty(truck.getRelTruckColors()) == false) {
+			List<Integer> colorIds = truck.getRelTruckColors().stream().map(rel -> rel.getId().getColorId())
+					.collect(Collectors.toList());
+
+			List<Color> foundColors = colorService.findAllByIds(colorIds);
+
+			if (CollectionUtils.isEmpty(foundColors)) {
+				throw new ValidationException("Invalid colors: All");
+			} else if (colorIds.size() != foundColors.size()) {
+				Set<Integer> foundColorIds = foundColors.stream().map(color -> color.getId())
+						.collect(Collectors.toSet());
+
+				List<String> notFoundColorIds = CollectionUtils.itemsNotInCollection(colorIds, foundColorIds).stream()
+						.map(String::valueOf).collect(Collectors.toList());
+
+				throw new ValidationException("Invalid color ids: " + String.join(", ", notFoundColorIds));
 			}
 		}
+	}
 
-		if (t.getFuelType() != null) {
-			try {
-				fuelTypeService.findById(t.getFuelType().getId());
-			} catch (NoSuchElementException nse) {
-				throw new ValidationException("Invalid fuel type id: " + t.getFuelType().getId());
-			}
-		}
-
-		if (CollectionUtils.isEmpty(t.getRelTruckApplications()) == false) {
-			List<Integer> applicationIds = t.getRelTruckApplications().stream()
+	private void validateRelTruckApplications(Truck truck) {
+		if (CollectionUtils.isEmpty(truck.getRelTruckApplications()) == false) {
+			List<Integer> applicationIds = truck.getRelTruckApplications().stream()
 					.map(rel -> rel.getId().getApplicationId()).collect(Collectors.toList());
 
 			List<Application> foundApplications = applicationService.findAllByIds(applicationIds);
@@ -91,23 +106,24 @@ public class TruckValidator implements Consumer<Truck> {
 				throw new ValidationException("Invalid application ids: " + String.join(", ", notFoundApplicationIds));
 			}
 		}
+	}
 
-		if (CollectionUtils.isEmpty(t.getRelTruckColors()) == false) {
-			List<Integer> colorIds = t.getRelTruckColors().stream().map(rel -> rel.getId().getColorId())
-					.collect(Collectors.toList());
+	private void validateFuelType(Truck truck) {
+		if (truck.getFuelType() != null) {
+			try {
+				fuelTypeService.findById(truck.getFuelType().getId());
+			} catch (NoSuchElementException nse) {
+				throw new ValidationException("Invalid fuel type id: " + truck.getFuelType().getId());
+			}
+		}
+	}
 
-			List<Color> foundColors = colorService.findAllByIds(colorIds);
-
-			if (CollectionUtils.isEmpty(foundColors)) {
-				throw new ValidationException("Invalid colors: All");
-			} else if (colorIds.size() != foundColors.size()) {
-				Set<Integer> foundColorIds = foundColors.stream().map(color -> color.getId())
-						.collect(Collectors.toSet());
-
-				List<String> notFoundColorIds = CollectionUtils.itemsNotInCollection(colorIds, foundColorIds).stream()
-						.map(String::valueOf).collect(Collectors.toList());
-
-				throw new ValidationException("Invalid color ids: " + String.join(", ", notFoundColorIds));
+	private void validateClassification(Truck truck) {
+		if (truck.getClassification() != null) {
+			try {
+				classificationService.findById(truck.getClassification().getId());
+			} catch (NoSuchElementException nse) {
+				throw new ValidationException("Invalid classification id: " + truck.getClassification().getId());
 			}
 		}
 	}
