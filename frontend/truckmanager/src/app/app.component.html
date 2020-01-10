@@ -7,6 +7,3 @@
 </clr-main-container>
 
 <app-modal-dialog [title]="'Error'" [text]="(this.error$ | async)?.message+'|'+(this.error$ | async)?.error?.message" [cancelButton]="false" (submit)="errorDialog.isOpen = false" #errorDialog></app-modal-dialog>
-<!--<div class="error" *ngIf="error$ | async">
-    <p>{{ error$ | async }}</p>
-</div>-->

@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/store/models/app-state.model';
 import { Store } from '@ngrx/store';
-import { LoadTrucksAction, LoadTruckAction } from 'src/app/store/actions/truck.actions';
-import { DetailComponent } from './detail/detail.component';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { LoadTrucksAction } from 'src/app/store/actions/truck.actions';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-manager',

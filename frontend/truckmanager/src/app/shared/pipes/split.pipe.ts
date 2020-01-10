@@ -9,6 +9,9 @@ export class SplitPipe implements PipeTransform {
     if (!input) {
       return "";
     }
+    if (!separator) {
+      separator = '|';
+    }
     return input.split(separator, limit);
   }
 }
