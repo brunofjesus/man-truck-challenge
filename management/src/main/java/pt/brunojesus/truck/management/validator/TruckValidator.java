@@ -9,16 +9,16 @@ import java.util.stream.Collectors;
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import pt.brunojesus.truck.foundation.aop.AutoLogger;
 import pt.brunojesus.truck.foundation.util.CollectionUtils;
-import pt.brunojesus.truck.management.service.IApplicationService;
-import pt.brunojesus.truck.management.service.IClassificationService;
-import pt.brunojesus.truck.management.service.IColorService;
-import pt.brunojesus.truck.management.service.IFuelTypeService;
+import pt.brunojesus.truck.management.foundation.GenericService;
 import pt.brunojesus.truck.model.domain.Application;
+import pt.brunojesus.truck.model.domain.Classification;
 import pt.brunojesus.truck.model.domain.Color;
+import pt.brunojesus.truck.model.domain.FuelType;
 import pt.brunojesus.truck.model.domain.Truck;
 
 /**
@@ -35,14 +35,17 @@ import pt.brunojesus.truck.model.domain.Truck;
 @AutoLogger
 public class TruckValidator implements Consumer<Truck> {
 
-	private final IClassificationService classificationService;
-	private final IFuelTypeService fuelTypeService;
-	private final IApplicationService applicationService;
-	private final IColorService colorService;
+	private final GenericService<Classification, Integer> classificationService;
+	private final GenericService<FuelType, Integer> fuelTypeService;
+	private final GenericService<Application, Integer> applicationService;
+	private final GenericService<Color, Integer> colorService;
 
 	@Autowired
-	public TruckValidator(IClassificationService classificationService, IFuelTypeService fuelTypeService,
-			IApplicationService applicationService, IColorService colorService) {
+	public TruckValidator(
+			@Qualifier("classificationService") GenericService<Classification, Integer> classificationService,
+			@Qualifier("fuelTypeService") GenericService<FuelType, Integer> fuelTypeService,
+			@Qualifier("applicationService") GenericService<Application, Integer> applicationService,
+			@Qualifier("colorService") GenericService<Color, Integer> colorService) {
 		super();
 		this.classificationService = classificationService;
 		this.fuelTypeService = fuelTypeService;
