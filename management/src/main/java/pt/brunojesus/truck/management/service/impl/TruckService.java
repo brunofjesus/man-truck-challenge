@@ -33,7 +33,6 @@ public class TruckService implements ITruckService {
 
 	@Autowired
 	public TruckService(ITruckRepository truckRepository, @Qualifier("truckValidator") Consumer<Truck> truckValidator) {
-
 		this.truckRepository = truckRepository;
 		this.truckValidator = truckValidator;
 	}
@@ -51,7 +50,7 @@ public class TruckService implements ITruckService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = { Exception.class })
 	public Truck update(@NonNull Truck updatedTruck) throws ResourceNotFoundException {
 		truckValidator.accept(updatedTruck);
 
@@ -70,7 +69,8 @@ public class TruckService implements ITruckService {
 		truckValidator.accept(truck);
 
 		if (truck.getId() > 0) {
-			throw new ValidationException("Cannot specify id to insert");
+			throw new ValidationException(
+					"Items for insertion must not have an ID. Are you trying to perform an update?");
 		}
 
 		Truck result = truckRepository.save(truck);
@@ -79,7 +79,7 @@ public class TruckService implements ITruckService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = { Exception.class })
 	public void deleteById(Long truckId) throws ResourceNotFoundException {
 
 		Truck dbTruck = getOne(truckId);
