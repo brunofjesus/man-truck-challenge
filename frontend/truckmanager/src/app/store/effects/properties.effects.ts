@@ -32,7 +32,7 @@ export class PropertiesEffects {
     @Effect() loadClassifications$ = this.actions$.pipe(
         ofType<LoadClassificationsAction>(PropertiesActionTypes.LOAD_CLASSIFICATIONS),
         mergeMap(
-            () => this.classificationsService.listClassificiations()
+            () => this.classificationsService.listClassifications()
                 .pipe(
                     map(data => new LoadClassificationsSuccessAction(data)),
                     catchError(e => of(new LoadClassificationsFailureAction(e)))

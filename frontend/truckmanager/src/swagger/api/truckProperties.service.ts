@@ -101,10 +101,10 @@ export class TruckPropertiesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listClassificiations(observe?: 'body', reportProgress?: boolean): Observable<Array<ClassificationDTO>>;
-    public listClassificiations(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ClassificationDTO>>>;
-    public listClassificiations(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ClassificationDTO>>>;
-    public listClassificiations(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public listClassifications(observe?: 'body', reportProgress?: boolean): Observable<Array<ClassificationDTO>>;
+    public listClassifications(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ClassificationDTO>>>;
+    public listClassifications(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ClassificationDTO>>>;
+    public listClassifications(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 

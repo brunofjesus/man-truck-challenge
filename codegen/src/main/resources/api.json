@@ -220,7 +220,7 @@
     "/classifications" : {
       "get" : {
         "summary" : "List all classifications",
-        "operationId" : "listClassificiations",
+        "operationId" : "listClassifications",
         "tags" : [ "classifications", "truckProperties" ],
         "responses" : {
           "200" : {

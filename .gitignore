@@ -3,6 +3,7 @@
 web/trucks.db.mv.db
 web/trucks.db.trace.db
 .attach_pid*
+bin/
 
 
 # Eclipse artifacts, including WTP generated manifests

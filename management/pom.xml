@@ -12,7 +12,6 @@
 	
 	<groupId>pt.brunojesus.truck</groupId>
 	<artifactId>management</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<name>management</name>

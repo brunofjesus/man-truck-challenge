@@ -31,7 +31,7 @@ public class ClassificationController implements ClassificationsApi {
 	}
 
 	@Override
-	public ResponseEntity<List<ClassificationDTO>> listClassificiations() {
+	public ResponseEntity<List<ClassificationDTO>> listClassifications() {
 		return genericMappedListResponse.apply(() -> classificationService.findAll(), ClassificationDTO.class);
 	}
 
