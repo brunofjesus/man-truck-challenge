@@ -199,7 +199,7 @@ The models and services are generated from swagger using maven swagger codegen p
 
 ## Workflow
 I used git for managing versions, I used that in order to save my work and do some experimentation if needed without compromising my current work.
-Optimally I could use GitFlow, but I was alone on this and didn't care too much about that.
+Optimally I could use GitFlow, but I was alone on this and didn't cared too much about that.
 
 
 
