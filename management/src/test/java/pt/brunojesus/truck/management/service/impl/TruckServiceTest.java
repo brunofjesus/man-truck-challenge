@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import javax.validation.ValidationException;
 
-import org.junit.Assert;
+import org.assertj.core.api.WithAssertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,7 +19,7 @@ import pt.brunojesus.truck.model.domain.Truck;
 import pt.brunojesus.truck.persistence.repository.ITruckRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TruckServiceTest {
+public class TruckServiceTest implements WithAssertions {
 
 	@Mock
 	private ITruckRepository truckRepository;
@@ -42,9 +42,7 @@ public class TruckServiceTest {
 		Mockito.verify(truckRepository, Mockito.times(1)).findAll(Mockito.eq(true), Mockito.eq(true), Mockito.eq(true),
 				Mockito.eq(true), Mockito.any());
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(2, result.size());
-		Assert.assertEquals(expectedResult, result);
+		assertThat(result).isNotNull().hasSameSizeAs(expectedResult).isEqualTo(expectedResult);
 	}
 
 	@Test
@@ -59,8 +57,7 @@ public class TruckServiceTest {
 		Mockito.verify(truckRepository, Mockito.times(1)).getOne(Mockito.eq(1L), Mockito.eq(true), Mockito.eq(true),
 				Mockito.eq(true), Mockito.eq(true));
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(expected, result);
+		assertThat(result).isNotNull().isEqualTo(expected);
 	}
 
 	@Test
@@ -82,8 +79,7 @@ public class TruckServiceTest {
 
 		Mockito.verify(truckRepository, Mockito.times(1)).update(Mockito.eq(expected));
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(expected, result);
+		assertThat(result).isNotNull().isEqualTo(expected);
 	}
 
 	@Test
@@ -94,11 +90,7 @@ public class TruckServiceTest {
 		Mockito.doThrow(new ValidationException("Mock exception")).when(truckValidator)
 				.accept(Mockito.any(Truck.class));
 
-		try {
-			truckService.update(mockedTruck);
-			Assert.fail("Exception should been thrown");
-		} catch (ValidationException e) {
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> truckService.update(mockedTruck));
 
 		Mockito.verify(mockedTruck, Mockito.never()).getId();
 
@@ -117,11 +109,7 @@ public class TruckServiceTest {
 		Mockito.when(truckRepository.getOne(Mockito.eq(1L), Mockito.eq(true), Mockito.eq(true), Mockito.eq(true),
 				Mockito.eq(true))).thenReturn(null);
 
-		try {
-			truckService.update(mockedTruck);
-			Assert.fail("Exception should have been thrown");
-		} catch (ResourceNotFoundException e) {
-		}
+		assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> truckService.update(mockedTruck));
 
 		Mockito.verify(mockedTruck, Mockito.times(1)).getId();
 
@@ -142,8 +130,7 @@ public class TruckServiceTest {
 
 		Mockito.verify(expected, Mockito.times(1)).getId();
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(expected, result);
+		assertThat(result).isNotNull().isEqualTo(expected);
 	}
 
 	@Test
@@ -154,11 +141,7 @@ public class TruckServiceTest {
 		Mockito.doThrow(new ValidationException("Mock exception")).when(truckValidator)
 				.accept(Mockito.any(Truck.class));
 
-		try {
-			truckService.save(mockedTruck);
-			Assert.fail("Exception should have been thrown");
-		} catch (ValidationException e) {
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> truckService.save(mockedTruck));
 
 		Mockito.verify(mockedTruck, Mockito.never()).getId();
 
@@ -170,11 +153,7 @@ public class TruckServiceTest {
 		Truck expected = Mockito.mock(Truck.class);
 		Mockito.when(expected.getId()).thenReturn(1L);
 
-		try {
-			truckService.save(expected);
-			Assert.fail("Exception should have been thrown");
-		} catch (ValidationException e) {
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> truckService.save(expected));
 
 		Mockito.verify(expected, Mockito.times(1)).getId();
 		Mockito.verify(truckRepository, Mockito.never()).save(Mockito.any(Truck.class));
@@ -197,11 +176,7 @@ public class TruckServiceTest {
 		Mockito.when(truckRepository.getOne(Mockito.eq(1L), Mockito.eq(true), Mockito.eq(true), Mockito.eq(true),
 				Mockito.eq(true))).thenReturn(null);
 
-		try {
-			truckService.deleteById(1L);
-			Assert.fail("Exception should have been thrown");
-		} catch (ResourceNotFoundException e) {
-		}
+		assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> truckService.deleteById(1L));
 
 		Mockito.verify(truckRepository, Mockito.never()).delete(Mockito.any());
 	}

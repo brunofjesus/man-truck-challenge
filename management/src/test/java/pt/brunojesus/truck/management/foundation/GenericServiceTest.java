@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.junit.Assert;
+import org.assertj.core.api.WithAssertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.repository.CrudRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GenericServiceTest {
+public class GenericServiceTest implements WithAssertions {
 
 	class Target {
 		public Integer id;
@@ -50,8 +50,7 @@ public class GenericServiceTest {
 
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.eq(1));
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(expected, result);
+		assertThat(result).isNotNull().isEqualTo(expected);
 	}
 
 	@Test
@@ -59,12 +58,7 @@ public class GenericServiceTest {
 
 		Mockito.when(repository.findById(Mockito.eq(1))).thenReturn(Optional.empty());
 
-		try {
-			service.findById(1);
-			Assert.fail("Exception should have been thrown");
-		} catch (NoSuchElementException e) {
-
-		}
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> service.findById(1));
 
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.eq(1));
 	}
@@ -79,9 +73,7 @@ public class GenericServiceTest {
 
 		Mockito.verify(repository, Mockito.times(1)).findAll();
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(mockedTargets.size(), result.size());
-		Assert.assertTrue(result.containsAll(mockedTargets));
+		assertThat(result).isNotNull().containsAll(mockedTargets).hasSameSizeAs(mockedTargets);
 	}
 
 	@Test
@@ -95,18 +87,16 @@ public class GenericServiceTest {
 
 		Mockito.verify(repository, Mockito.times(1)).findAllById(ids);
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(mockedTargets.size(), result.size());
-		Assert.assertTrue(result.containsAll(mockedTargets));
+		assertThat(result).isNotNull().containsAll(mockedTargets).hasSameSizeAs(mockedTargets);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testFindAllByIds_nullList_mustFail() {
-		service.findAllByIds(null);
+		assertThatIllegalArgumentException().isThrownBy(() -> service.findAllByIds(null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testFindAllByIds_emptyList_mustFail() {
-		service.findAllByIds(new ArrayList<Integer>());
+		assertThatIllegalArgumentException().isThrownBy(() -> service.findAllByIds(new ArrayList<Integer>()));
 	}
 }

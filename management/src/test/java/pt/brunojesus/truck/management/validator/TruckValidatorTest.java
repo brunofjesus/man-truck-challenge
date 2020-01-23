@@ -1,5 +1,8 @@
 package pt.brunojesus.truck.management.validator;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +10,6 @@ import java.util.NoSuchElementException;
 
 import javax.validation.ValidationException;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -123,12 +125,8 @@ public class TruckValidatorTest {
 
 	@Test
 	public void testAccept_nullTruck_mustFail() {
-		try {
-			validator.accept(null);
-			Assert.fail("Exception should been thrown");
-		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("Truck cannot be null", e.getMessage());
-		}
+		assertThatIllegalArgumentException().isThrownBy(() -> validator.accept(null))
+				.withMessage("Truck cannot be null");
 	}
 
 	@Test
@@ -140,12 +138,8 @@ public class TruckValidatorTest {
 		Mockito.when(truckClassification.getId()).thenReturn(10);
 		Mockito.when(classificationService.findById(Mockito.eq(10))).thenThrow(new NoSuchElementException());
 
-		try {
-			validator.accept(truck);
-			Assert.fail("Exception should been thrown");
-		} catch (ValidationException e) {
-			Assert.assertEquals("Invalid classification id: 10", e.getMessage());
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> validator.accept(truck))
+				.withMessage("Invalid classification id: 10");
 
 		Mockito.verify(truck, Mockito.times(3)).getClassification();
 		Mockito.verify(truckClassification, Mockito.times(2)).getId();
@@ -167,12 +161,8 @@ public class TruckValidatorTest {
 		Mockito.when(truckFuelType.getId()).thenReturn(11);
 		Mockito.when(fuelTypeService.findById(Mockito.eq(11))).thenThrow(new NoSuchElementException());
 
-		try {
-			validator.accept(truck);
-			Assert.fail("Exception should been thrown");
-		} catch (ValidationException e) {
-			Assert.assertEquals("Invalid fuel type id: 11", e.getMessage());
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> validator.accept(truck))
+				.withMessage("Invalid fuel type id: 11");
 
 		Mockito.verify(truck, Mockito.times(3)).getFuelType();
 		Mockito.verify(truckFuelType, Mockito.times(2)).getId();
@@ -203,12 +193,8 @@ public class TruckValidatorTest {
 		Mockito.when(relTruckApplication2.getId()).thenReturn(new RelTruckApplicationId(1, 2));
 		Mockito.when(applicationService.findAllByIds(Mockito.any())).thenReturn(new ArrayList<Application>());
 
-		try {
-			validator.accept(truck);
-			Assert.fail("Exception should been thrown");
-		} catch (ValidationException e) {
-			Assert.assertEquals("Invalid applications: All", e.getMessage());
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> validator.accept(truck))
+				.withMessage("Invalid applications: All");
 
 		Mockito.verify(truck, Mockito.times(2)).getRelTruckApplications();
 		Mockito.verify(relTruckApplication1, Mockito.times(1)).getId();
@@ -243,12 +229,8 @@ public class TruckValidatorTest {
 		Mockito.when(applicationService.findAllByIds(Mockito.any())).thenReturn(Arrays.asList(a1));
 		Mockito.when(a1.getId()).thenReturn(1);
 
-		try {
-			validator.accept(truck);
-			Assert.fail("Exception should been thrown");
-		} catch (ValidationException e) {
-			Assert.assertEquals("Invalid application ids: 2", e.getMessage());
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> validator.accept(truck))
+				.withMessage("Invalid application ids: 2");
 
 		Mockito.verify(truck, Mockito.times(2)).getRelTruckApplications();
 		Mockito.verify(relTruckApplication1, Mockito.times(1)).getId();
@@ -292,12 +274,8 @@ public class TruckValidatorTest {
 		Mockito.when(relTruckcolor2.getId()).thenReturn(new RelTruckColorId(1, 2));
 		Mockito.when(colorService.findAllByIds(Mockito.any())).thenReturn(new ArrayList<Color>());
 
-		try {
-			validator.accept(truck);
-			Assert.fail("Exception should been thrown");
-		} catch (ValidationException e) {
-			Assert.assertEquals("Invalid colors: All", e.getMessage());
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> validator.accept(truck))
+				.withMessage("Invalid colors: All");
 
 		Mockito.verify(truck, Mockito.times(2)).getRelTruckColors();
 		Mockito.verify(relTruckcolor1, Mockito.times(1)).getId();
@@ -343,12 +321,8 @@ public class TruckValidatorTest {
 		Mockito.when(colorService.findAllByIds(Mockito.any())).thenReturn(Arrays.asList(c1));
 		Mockito.when(c1.getId()).thenReturn(1);
 
-		try {
-			validator.accept(truck);
-			Assert.fail("Exception should been thrown");
-		} catch (ValidationException e) {
-			Assert.assertEquals("Invalid color ids: 2", e.getMessage());
-		}
+		assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> validator.accept(truck))
+				.withMessage("Invalid color ids: 2");
 
 		Mockito.verify(truck, Mockito.times(2)).getRelTruckColors();
 		Mockito.verify(relTruckcolor1, Mockito.times(1)).getId();
